@@ -203,6 +203,14 @@
   line-height: 1.1;
 }
 
+.fmup-section .subtitle {
+  font-size: 19pt;
+  font-style: italic;
+  font-weight: 400;
+  margin: 0.7em 0 0 0;
+  max-width: 75%;
+}
+
 /* ════════════════════════════════════════════════════════════════
    CONTENT SLIDE — no footer
    ════════════════════════════════════════════════════════════════ */
@@ -212,7 +220,51 @@
   height: 720px;
   padding: 9% 11% 8% 11%;
   box-sizing: border-box;
+  position: relative;
 }
+
+/* Tight modifier — for slides whose content is bumping the bottom edge.
+   Smaller padding, smaller h2, smaller subtitle, smaller body. */
+.fmup-content.tight {
+  padding: 6% 9% 5% 9%;
+}
+.fmup-content.tight h2 { font-size: 26pt; margin-bottom: 0.25em; }
+.fmup-content.tight .title-rule { margin-bottom: 0.7em; }
+.fmup-content.tight .subtitle-line { font-size: 14pt; margin-bottom: 0.8em; }
+.fmup-content.tight .fmup-step-row .step .step-num { font-size: 11pt; }
+.fmup-content.tight .fmup-step-row .step .step-text { font-size: 12pt; line-height: 1.3; }
+.fmup-content.tight .fmup-step-row .step { padding: 11px 13px; }
+.fmup-content.tight .fmup-highlight { font-size: 14pt; padding: 14px 18px; }
+.fmup-content.tight .fmup-highlight .highlight-label { font-size: 10pt; }
+.fmup-content.tight p { font-size: 14pt; }
+
+/* Tight: FAIR grid */
+.fmup-content.tight .fmup-fair-grid { gap: 12px; }
+.fmup-content.tight .fmup-fair-grid .fair-card {
+  padding: 12px 16px;
+  grid-template-columns: 52px 1fr;
+  gap: 14px;
+}
+.fmup-content.tight .fmup-fair-grid .fair-letter {
+  font-size: 42pt;
+  width: 52px;
+  height: 52px;
+}
+.fmup-content.tight .fmup-fair-grid .fair-term { font-size: 15pt; }
+.fmup-content.tight .fmup-fair-grid .fair-meta { font-size: 11pt; margin: 3px 0 6px 0; }
+.fmup-content.tight .fmup-fair-grid .fair-pain { font-size: 10pt; padding-top: 5px; }
+.fmup-content.tight .fmup-caveat { font-size: 12pt; padding-top: 10px; margin-top: 10px; }
+
+/* Tight: lists & 2-col */
+.fmup-content.tight .body h3 { font-size: 16pt; margin-bottom: 0.3em; }
+.fmup-content.tight .body ul { margin-top: 0.3em; }
+.fmup-content.tight .body ul li { font-size: 12pt; line-height: 1.35; margin: 0.18em 0; }
+.fmup-content.tight .two-col { gap: 28px; }
+
+/* Tight: chain */
+.fmup-content.tight .fmup-chain .node { font-size: 11pt; padding: 8px 11px; }
+.fmup-content.tight .fmup-chain .arrow { font-size: 13pt; }
+.fmup-content.tight .fmup-chain { gap: 6px; }
 
 .fmup-content h2 {
   font-size: 32pt;
@@ -291,6 +343,40 @@
   font-size: 16pt;
   margin: 0;
   line-height: 1.4;
+}
+
+/* Card with label + topic + time meta (for agenda-style cards) */
+.fmup-card .card-label {
+  font-size: 12pt;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--fmup-grey-text);
+  margin: 0 0 0.6em 0;
+}
+
+.fmup-card .card-time {
+  font-size: 14pt;
+  font-style: italic;
+  color: var(--fmup-grey-text);
+  margin-top: 0.7em;
+}
+
+/* Body footer line — used after a cards block (e.g. Q&A note below agenda) */
+.fmup-content .body-footer {
+  text-align: center;
+  font-size: 12pt;
+  color: var(--fmup-grey-text);
+  margin-top: 0.8em;
+  flex: 0 0 auto;
+}
+
+.fmup-content .body-footer p,
+.reveal .fmup-content .body-footer p {
+  font-size: 11pt !important;
+  line-height: 1.35 !important;
+  margin: 0 !important;
+  color: var(--fmup-grey-text);
 }
 
 /* ════════════════════════════════════════════════════════════════
@@ -388,6 +474,949 @@
   margin-top: 12px;
 }
 
+/* Screenshot variant — soft shadow + thin border to signal "this is a UI/PDF screenshot" */
+.image-frame.screenshot {
+  background: var(--fmup-white) !important;
+  border: 1px solid var(--fmup-grey-line);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.10), 0 2px 6px rgba(0, 0, 0, 0.06);
+  margin: 8px;
+}
+.image-frame.screenshot img {
+  box-shadow: none;
+}
+
+/* image-cells: side-by-side image placeholders + an optional "..." cell.
+   Used for audience-segmentation prompts ("Your turn"). */
+.fmup-image-cells {
+  display: grid;
+  grid-template-columns: 1fr 1fr 0.4fr;
+  gap: 24px;
+  flex: 1;
+  align-items: stretch;
+  min-height: 0;
+}
+
+.fmup-image-cells .cell {
+  background: var(--fmup-grey-bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.fmup-image-cells .cell img,
+.fmup-image-cells .cell svg {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+.fmup-image-cells .cell .icon {
+  font-size: 90pt;
+  color: var(--fmup-black);
+  margin-bottom: 18px;
+  line-height: 1;
+}
+
+.fmup-image-cells .cell .cell-caption {
+  font-size: 14pt;
+  color: var(--fmup-grey-text);
+  text-align: center;
+}
+
+.fmup-image-cells .cell.dots {
+  background: transparent;
+  font-size: 80pt;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--fmup-black);
+  line-height: 0.5;
+}
+
+/* Attribution badge — small credit box, bottom-right of slide */
+.fmup-content .attribution-badge {
+  position: absolute;
+  bottom: 4%;
+  right: 5%;
+  background: var(--fmup-grey-bg);
+  padding: 8px 14px;
+  font-size: 11pt;
+  line-height: 1.35;
+  color: var(--fmup-black);
+}
+
+.fmup-content .attribution-badge .credit-line { display: block; }
+.fmup-content .attribution-badge .credit-strong { font-weight: 600; }
+
+/* Subtitle line for content slides — italic intro under the title rule */
+.fmup-content .subtitle-line {
+  font-size: 16pt;
+  font-style: italic;
+  color: var(--fmup-grey-text);
+  margin: 0 0 1.2em 0;
+  max-width: 80%;
+}
+
+/* Icon grid with center cell — for "data sources around the patient" */
+.fmup-icon-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  flex: 1;
+  min-height: 0;
+}
+
+.fmup-icon-grid .cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--fmup-grey-bg);
+  padding: 14px;
+  text-align: center;
+  min-height: 0;
+}
+
+.fmup-icon-grid .cell.center {
+  background: var(--fmup-yellow);
+}
+
+.fmup-icon-grid .cell.empty {
+  background: transparent;
+}
+
+.fmup-icon-grid .cell .icon {
+  font-size: 34pt;
+  color: var(--fmup-black);
+  margin-bottom: 8px;
+  line-height: 1;
+}
+
+.fmup-icon-grid .cell .label {
+  font-size: 12pt;
+  font-weight: 400;
+  color: var(--fmup-black);
+  line-height: 1.25;
+}
+
+.fmup-icon-grid .cell .label .label-strong {
+  font-weight: 700;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.fmup-icon-grid .cell.center .label-strong {
+  font-size: 14pt;
+}
+
+/* Two diagrams side by side, with source captions */
+.fmup-two-images {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 36px;
+  flex: 1;
+  min-height: 0;
+}
+
+.fmup-two-images .image-block {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.fmup-two-images .image-frame {
+  flex: 1;
+  background: var(--fmup-grey-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.fmup-two-images .image-frame img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+.fmup-two-images .source {
+  font-size: 11pt;
+  color: var(--fmup-grey-text);
+  margin-top: 8px;
+  word-break: break-all;
+}
+
+/* Split contrast — two columns where one side feels sterile and the other rich */
+.fmup-split-contrast {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 36px;
+  flex: 1;
+  min-height: 0;
+  align-items: stretch;
+}
+
+.fmup-split-contrast .pane {
+  display: flex;
+  flex-direction: column;
+  padding: 24px 28px;
+  min-height: 0;
+}
+
+.fmup-split-contrast .pane.sterile {
+  background: var(--fmup-grey-bg);
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.fmup-split-contrast .pane.rich {
+  background: var(--fmup-white);
+  border-left: 3px solid var(--fmup-yellow);
+}
+
+.fmup-split-contrast .pane-label {
+  font-size: 12pt;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--fmup-grey-text);
+  margin-bottom: 1em;
+}
+
+.fmup-split-contrast .pane.sterile .big-number {
+  font-size: 100pt;
+  font-weight: 700;
+  line-height: 1;
+  margin: 0.1em 0;
+}
+
+.fmup-split-contrast .pane.sterile .number-label {
+  font-size: 14pt;
+  color: var(--fmup-grey-text);
+  margin-top: 0.5em;
+}
+
+.fmup-split-contrast .pane.rich blockquote {
+  font-style: italic;
+  font-size: 18pt;
+  line-height: 1.45;
+  margin: 0;
+  max-width: 100%;
+}
+
+/* Definition box — callout for definitions */
+.fmup-definition {
+  background: var(--fmup-grey-bg);
+  border-left: 4px solid var(--fmup-yellow);
+  padding: 18px 24px;
+  margin: 0 0 1.4em 0;
+  font-size: 17pt;
+  line-height: 1.45;
+}
+
+.fmup-definition .term {
+  font-weight: 700;
+  margin-right: 0.4em;
+}
+
+/* Caveat block — small italic note, often at the bottom */
+.fmup-caveat {
+  font-size: 14pt;
+  font-style: italic;
+  color: var(--fmup-grey-text);
+  border-top: 1px solid var(--fmup-grey-line);
+  padding-top: 14px;
+  margin-top: 14px;
+}
+
+.fmup-caveat .caveat-strong {
+  font-weight: 700;
+  font-style: normal;
+  color: var(--fmup-black);
+  margin-right: 0.3em;
+}
+
+/* Concentric rings — patient at center, expanding rings of data */
+.fmup-rings {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 32px;
+  min-height: 0;
+  align-items: center;
+}
+
+.fmup-rings .ring-stage {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  max-height: 100%;
+  align-self: center;
+  justify-self: center;
+}
+
+.fmup-rings .ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1.5px solid var(--fmup-grey-line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11pt;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fmup-grey-text);
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.fmup-rings .ring.r1 { inset: 0%; }
+.fmup-rings .ring.r2 { inset: 14%; }
+.fmup-rings .ring.r3 { inset: 30%; }
+.fmup-rings .ring.r4 {
+  inset: 44%;
+  background: var(--fmup-yellow);
+  border-color: var(--fmup-yellow);
+  color: var(--fmup-black);
+  font-weight: 700;
+}
+
+.fmup-rings .ring-label {
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--fmup-white);
+  padding: 0 8px;
+}
+
+.fmup-rings .ring.r4 .ring-label {
+  position: static;
+  transform: none;
+  background: transparent;
+  padding: 0;
+}
+
+.fmup-rings .ring-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.fmup-rings .ring-list .ring-item {
+  font-size: 14pt;
+  line-height: 1.4;
+}
+
+.fmup-rings .ring-list .item-label {
+  font-weight: 700;
+  margin-right: 0.3em;
+}
+
+.fmup-rings .ring-list .item-meta {
+  font-size: 12pt;
+  color: var(--fmup-grey-text);
+  display: block;
+  margin-top: 2px;
+}
+
+/* Obstacle deep-dive — small text card on one side, large illustration on the other */
+.fmup-obstacle-detail {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 36px;
+  flex: 1;
+  min-height: 0;
+  align-items: stretch;
+}
+
+.fmup-obstacle-detail.reverse {
+  grid-template-columns: 1.4fr 1fr;
+}
+
+.fmup-obstacle-detail.reverse .obstacle-image-pane { order: 1; }
+.fmup-obstacle-detail.reverse .obstacle-text-pane { order: 2; }
+
+.fmup-obstacle-detail .obstacle-text-pane {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fmup-obstacle-detail .obstacle-card {
+  background: var(--fmup-grey-bg);
+  padding: 30px 28px;
+  text-align: center;
+  width: 100%;
+  max-width: 360px;
+}
+
+.fmup-obstacle-detail .obstacle-card .icon {
+  font-size: 52pt;
+  color: var(--fmup-black);
+  margin-bottom: 16px;
+  display: block;
+  line-height: 1;
+}
+
+.fmup-obstacle-detail .obstacle-card .label {
+  font-size: 16pt;
+  line-height: 1.4;
+  color: var(--fmup-black);
+}
+
+.fmup-obstacle-detail .obstacle-card .label .label-key {
+  font-weight: 700;
+}
+
+.fmup-obstacle-detail .obstacle-image-pane {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--fmup-grey-bg);
+  min-height: 0;
+  overflow: hidden;
+}
+
+.fmup-obstacle-detail .obstacle-image-pane img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+/* Standards grid — text-based brand cells (placeholder for actual logos) */
+.fmup-standards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  flex: 1;
+  min-height: 0;
+}
+
+.fmup-standards-grid .standard {
+  background: var(--fmup-grey-bg);
+  padding: 22px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 0;
+}
+
+.fmup-standards-grid .standard .name {
+  font-size: 22pt;
+  font-weight: 700;
+  margin: 0 0 0.3em 0;
+  letter-spacing: -0.01em;
+}
+
+.fmup-standards-grid .standard .name .name-thin {
+  font-weight: 400;
+  margin-left: 0.25em;
+}
+
+.fmup-standards-grid .standard .meta {
+  font-size: 13pt;
+  color: var(--fmup-grey-text);
+  line-height: 1.35;
+}
+
+.fmup-standards-grid .standard.dots {
+  background: transparent;
+  align-items: center;
+  justify-content: center;
+  font-size: 60pt;
+  font-weight: 700;
+  color: var(--fmup-black);
+  letter-spacing: 0.05em;
+  line-height: 0.5;
+}
+
+/* Teaser variant — bigger, centered, no meta lines */
+.fmup-standards-grid.teaser .standard {
+  padding: 36px 28px;
+  align-items: center;
+  text-align: center;
+}
+.fmup-standards-grid.teaser .standard .name {
+  font-size: 30pt;
+  margin: 0;
+}
+.fmup-standards-grid.teaser .standard .name .name-thin {
+  display: block;
+  font-size: 16pt;
+  margin: 0.3em 0 0 0;
+  letter-spacing: 0.04em;
+}
+.fmup-standards-grid.teaser .standard .meta { display: none; }
+
+/* Logo cell — image-based standard cell, centered in the box */
+.fmup-standards-grid .standard.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28px 24px;
+}
+.fmup-standards-grid .standard.logo img {
+  max-width: 100%;
+  max-height: 90px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+.fmup-standards-grid.teaser .standard.logo {
+  padding: 32px 28px;
+}
+.fmup-standards-grid.teaser .standard.logo img {
+  max-height: 110px;
+}
+
+/* Data quality 3-column layout: image + caption */
+.fmup-quality-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  flex: 1;
+  min-height: 0;
+}
+
+.fmup-quality-grid .item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 0;
+}
+
+.fmup-quality-grid .item .image-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  width: 100%;
+  overflow: hidden;
+}
+
+.fmup-quality-grid .item img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+.fmup-quality-grid .item .caption {
+  font-size: 17pt;
+  text-align: center;
+  margin-top: 14px;
+  line-height: 1.3;
+}
+
+/* Highlight callout — strong, single key insight */
+.fmup-highlight {
+  background: var(--fmup-yellow);
+  padding: 18px 24px;
+  font-size: 16pt;
+  line-height: 1.45;
+  margin-top: 14px;
+}
+
+.fmup-highlight .highlight-label {
+  font-size: 11pt;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  display: block;
+}
+
+/* Sub-list inside the definition box / list */
+.fmup-sublist {
+  margin: 0.6em 0 0 0;
+  padding-left: 1.2em;
+  font-size: 16pt;
+  line-height: 1.45;
+}
+
+.fmup-sublist li { margin: 0.25em 0; }
+
+/* Pill grid — short bold statements arranged like the OMOP key-principles slide */
+.fmup-pill-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px 24px;
+  flex: 1;
+  min-height: 0;
+}
+
+.fmup-pill-grid .pill {
+  background: var(--fmup-grey-bg);
+  padding: 18px 24px;
+  font-size: 18pt;
+  font-weight: 700;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.3;
+  min-height: 0;
+}
+
+.fmup-pill-grid .pill.span-2 {
+  grid-column: 1 / -1;
+  max-width: 60%;
+  margin: 0 auto;
+}
+
+/* Mini icon row — 5 small icon+label cells, used on the OMOP intro overview */
+.fmup-icon-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 14px;
+  margin-top: 1em;
+}
+
+.fmup-icon-row .item {
+  background: var(--fmup-grey-bg);
+  padding: 14px 12px;
+  text-align: center;
+}
+
+.fmup-icon-row .item .icon {
+  font-size: 22pt;
+  color: var(--fmup-black);
+  margin-bottom: 6px;
+  display: block;
+  line-height: 1;
+}
+
+.fmup-icon-row .item .label-strong {
+  font-size: 13pt;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.fmup-icon-row .item .label-meta {
+  font-size: 11pt;
+  color: var(--fmup-grey-text);
+  line-height: 1.3;
+}
+
+/* Big quote / hero statement — used on the design-philosophy slide */
+.fmup-hero-quote {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 4%;
+}
+
+.fmup-hero-quote .pre-label {
+  font-size: 12pt;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--fmup-grey-text);
+  margin-bottom: 18px;
+}
+
+.fmup-hero-quote .pre-label::after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 1.5px;
+  background: var(--fmup-black);
+  margin-top: 10px;
+}
+
+.fmup-hero-quote .lead {
+  font-size: 30pt;
+  line-height: 1.3;
+  font-weight: 400;
+  margin: 0 0 1em 0;
+  max-width: 90%;
+}
+
+.fmup-hero-quote .lead .lead-key {
+  font-weight: 700;
+}
+
+.fmup-hero-quote .followup {
+  font-size: 17pt;
+  font-style: italic;
+  color: var(--fmup-grey-text);
+  margin: 0;
+  max-width: 75%;
+}
+
+/* Naming-conventions table — clean, data-doc style */
+.fmup-naming-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14pt;
+  line-height: 1.35;
+}
+
+.fmup-naming-table thead th {
+  background: var(--fmup-grey-bg);
+  font-weight: 700;
+  text-align: left;
+  padding: 10px 12px;
+  font-size: 13pt;
+}
+
+.fmup-naming-table tbody td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--fmup-grey-line);
+  vertical-align: top;
+}
+
+.fmup-naming-table tbody tr:last-child td { border-bottom: none; }
+
+.fmup-naming-table .feature {
+  font-weight: 700;
+  width: 22%;
+}
+
+.fmup-naming-table .convention {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13pt;
+  width: 22%;
+  white-space: nowrap;
+}
+
+.fmup-naming-table .example {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12pt;
+  color: var(--fmup-grey-text);
+  width: 26%;
+}
+
+/* Vocabulary concept structure — three SVG-based illustrations */
+.fmup-concept-trio {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  flex: 1;
+  min-height: 0;
+}
+
+.fmup-concept-trio .concept-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 12px;
+}
+
+.fmup-concept-trio .concept-cell .concept-svg {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 18px;
+}
+
+.fmup-concept-trio .concept-cell .concept-svg svg {
+  max-width: 100%;
+  max-height: 200px;
+  height: auto;
+}
+
+.fmup-concept-trio .concept-cell .concept-caption {
+  font-size: 15pt;
+  line-height: 1.4;
+  max-width: 280px;
+}
+
+.fmup-concept-trio .concept-cell .concept-caption code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14pt;
+  font-weight: 700;
+  display: block;
+  margin-top: 4px;
+}
+
+/* FAIR grid — 2x2 with big initial letter */
+.fmup-fair-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.fmup-fair-grid .fair-card {
+  background: var(--fmup-grey-bg);
+  padding: 18px 22px;
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 18px;
+  align-items: start;
+}
+
+.fmup-fair-grid .fair-letter {
+  font-size: 56pt;
+  font-weight: 700;
+  line-height: 0.9;
+  color: var(--fmup-black);
+  background: var(--fmup-yellow);
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fmup-fair-grid .fair-body { min-width: 0; }
+
+.fmup-fair-grid .fair-term {
+  font-size: 18pt;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.1;
+}
+
+.fmup-fair-grid .fair-meta {
+  font-size: 13pt;
+  margin: 4px 0 8px 0;
+  line-height: 1.35;
+}
+
+.fmup-fair-grid .fair-pain {
+  font-size: 12pt;
+  font-style: italic;
+  color: var(--fmup-grey-text);
+  line-height: 1.35;
+  border-top: 1px solid var(--fmup-grey-line);
+  padding-top: 6px;
+}
+
+/* Numbered step row — used for federated-analysis "how it works" */
+.fmup-step-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin: 0.8em 0;
+}
+
+.fmup-step-row .step {
+  background: var(--fmup-grey-bg);
+  padding: 14px 16px;
+  position: relative;
+}
+
+.fmup-step-row .step .step-num {
+  font-size: 13pt;
+  font-weight: 700;
+  color: var(--fmup-grey-text);
+  margin-bottom: 4px;
+}
+
+.fmup-step-row .step .step-text {
+  font-size: 13pt;
+  line-height: 1.35;
+}
+
+/* Horizontal chain — small boxes connected by arrows (governance flow) */
+.fmup-chain {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.fmup-chain .node {
+  background: var(--fmup-grey-bg);
+  padding: 10px 14px;
+  font-size: 13pt;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.fmup-chain .node.start { background: var(--fmup-yellow); }
+
+.fmup-chain .arrow {
+  font-size: 16pt;
+  color: var(--fmup-black);
+  font-weight: 700;
+}
+
+/* Discussion slide — yellow background, distinct from regular content */
+.fmup-discussion {
+  background: var(--fmup-yellow) !important;
+  display: flex !important;
+  flex-direction: column;
+  height: 720px;
+  padding: 7% 10%;
+  box-sizing: border-box;
+}
+
+.fmup-discussion .label {
+  font-size: 13pt;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin: 0 0 0.4em 0;
+}
+
+.fmup-discussion .label::after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 1.5px;
+  background: var(--fmup-black);
+  margin-top: 10px;
+}
+
+.fmup-discussion h2 {
+  font-size: 36pt;
+  margin: 0 0 0.8em 0;
+  line-height: 1.15;
+}
+
+.fmup-discussion .questions {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  flex: 1;
+  justify-content: center;
+}
+
+.fmup-discussion .q {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 18px;
+  align-items: baseline;
+}
+
+.fmup-discussion .q-num {
+  font-size: 38pt;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--fmup-black);
+}
+
+.fmup-discussion .q-text {
+  font-size: 19pt;
+  line-height: 1.4;
+}
+
 /* ════════════════════════════════════════════════════════════════
    QUOTE — vertically centered
    ════════════════════════════════════════════════════════════════ */
@@ -416,6 +1445,696 @@
   font-size: 15pt;
   color: var(--fmup-grey-text);
   padding-left: 26px;
+}
+
+.fmup-quote .sub-prompt {
+  font-size: 16pt;
+  color: var(--fmup-grey-text);
+  padding-left: 26px;
+  margin-top: 2.5em;
+  max-width: 70%;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   BIG-LETTER PAIR — for RWD / RWE definition slide
+   ════════════════════════════════════════════════════════════════ */
+.fmup-bigletter-pair {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  flex: 1;
+  min-height: 0;
+  justify-content: center;
+}
+
+.fmup-bigletter-pair .bl-row {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  align-items: center;
+  background: var(--fmup-grey-bg);
+  padding: 18px 26px;
+  gap: 24px;
+  min-height: 0;
+  border-left: 4px solid var(--fmup-yellow);
+}
+
+.fmup-bigletter-pair .bl-letter {
+  font-family: 'Inter', sans-serif;
+  font-size: 44pt;
+  font-weight: 800;
+  color: var(--fmup-black);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  text-align: center;
+}
+
+.fmup-bigletter-pair .bl-body h3 {
+  font-size: 18pt;
+  font-weight: 700;
+  margin: 0 0 0.5em 0;
+}
+
+.fmup-bigletter-pair .bl-body ul {
+  margin: 0;
+  padding-left: 1.1em;
+}
+
+.fmup-bigletter-pair .bl-body li {
+  font-size: 15pt;
+  line-height: 1.4;
+  margin: 0.25em 0;
+}
+
+.fmup-bigletter-pair .bl-arrow {
+  text-align: center;
+  font-size: 26pt;
+  color: var(--fmup-grey-text);
+  line-height: 1;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   IMAGE-CENTERED — single image, centered, with optional caption
+   ════════════════════════════════════════════════════════════════ */
+.fmup-image-centered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  min-height: 0;
+  gap: 14px;
+}
+
+.fmup-image-centered .image-frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+  max-height: 100%;
+  min-height: 0;
+}
+
+.fmup-image-centered .image-frame img {
+  max-width: 100%;
+  max-height: 340px;
+  object-fit: contain;
+}
+
+.fmup-image-centered .image-frame.tall img { max-height: 380px; }
+
+.fmup-image-centered .caption {
+  font-size: 11pt;
+  color: var(--fmup-grey-text);
+  text-align: center;
+  max-width: 80%;
+}
+
+.fmup-image-centered .lead {
+  font-size: 17pt;
+  text-align: center;
+  max-width: 75%;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   RWD CARDS — three small cards for registries / claims / PROs
+   ════════════════════════════════════════════════════════════════ */
+.fmup-rwd-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  flex: 1;
+  min-height: 0;
+}
+
+.fmup-rwd-cards .rcard {
+  background: var(--fmup-grey-bg);
+  padding: 22px 22px;
+  display: flex;
+  flex-direction: column;
+}
+
+.fmup-rwd-cards .rcard .rtag {
+  font-size: 10pt;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fmup-grey-text);
+  margin-bottom: 0.4em;
+}
+
+.fmup-rwd-cards .rcard h3 {
+  font-size: 19pt;
+  font-weight: 700;
+  margin: 0 0 0.6em 0;
+  line-height: 1.15;
+}
+
+.fmup-rwd-cards .rcard ul {
+  margin: 0;
+  padding-left: 1.1em;
+}
+
+.fmup-rwd-cards .rcard li {
+  font-size: 13pt;
+  line-height: 1.4;
+  margin: 0.3em 0;
+}
+
+.fmup-rwd-cards .rcard .rcard-foot {
+  margin-top: auto;
+  padding-top: 0.8em;
+  font-size: 11pt;
+  color: var(--fmup-grey-text);
+  font-style: italic;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   RWD CHARS — characteristics list with accent
+   ════════════════════════════════════════════════════════════════ */
+.fmup-rwd-chars {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+.fmup-rwd-chars .ch {
+  display: grid;
+  grid-template-columns: 14px 1fr;
+  gap: 14px;
+  align-items: baseline;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--fmup-grey-line);
+}
+
+.fmup-rwd-chars .ch:last-child { border-bottom: none; }
+
+.fmup-rwd-chars .ch .ch-bullet {
+  width: 8px;
+  height: 8px;
+  background: var(--fmup-black);
+  border-radius: 50%;
+  margin-top: 0.45em;
+}
+
+.fmup-rwd-chars .ch.accent .ch-bullet { background: var(--fmup-yellow); }
+
+.fmup-rwd-chars .ch-text {
+  font-size: 15pt;
+  line-height: 1.4;
+}
+
+.fmup-rwd-chars .ch-text strong { font-weight: 700; }
+
+/* ════════════════════════════════════════════════════════════════
+   NESTED BOXES — AI ⊃ ML ⊃ DL ⊃ LLMs (concentric rectangles)
+   Each level: a labelled rectangle with the next level nested inside.
+   The label sits at the top-left so it stays visible when children
+   are added on subsequent slides.
+   ════════════════════════════════════════════════════════════════ */
+.fmup-nested-boxes {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  min-height: 0;
+  padding: 8px 0;
+}
+
+.fmup-nested-boxes .nb-box {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--fmup-white);
+  border: 2px solid var(--fmup-grey-line);
+}
+
+.fmup-nested-boxes .nb-box > .nb-name {
+  position: absolute;
+  top: 14px;
+  left: 24px;
+  font-weight: 700;
+  color: var(--fmup-black);
+  letter-spacing: -0.01em;
+  line-height: 1;
+}
+
+.fmup-nested-boxes .nb-l1 {
+  border-color: var(--fmup-black);
+  border-width: 2.5px;
+  width: 760px;
+  height: 400px;
+  padding: 50px 32px 24px;
+}
+.fmup-nested-boxes .nb-l1 > .nb-name { font-size: 22pt; }
+
+.fmup-nested-boxes .nb-l2 {
+  background: var(--fmup-grey-bg);
+  border-color: var(--fmup-grey-line);
+  flex: 1;
+  margin-top: 12px;
+  padding: 50px 28px 22px;
+}
+.fmup-nested-boxes .nb-l2 > .nb-name { font-size: 22pt; }
+
+.fmup-nested-boxes .nb-l3 {
+  background: var(--fmup-white);
+  border-color: var(--fmup-grey-line);
+  flex: 1;
+  margin-top: 10px;
+  padding: 42px 24px 18px;
+}
+.fmup-nested-boxes .nb-l3 > .nb-name { font-size: 18pt; }
+
+.fmup-nested-boxes .nb-l4 {
+  background: var(--fmup-yellow);
+  border-color: var(--fmup-yellow);
+  flex: 1;
+  margin-top: 10px;
+  padding: 34px 22px 18px;
+  min-height: 58px;
+}
+.fmup-nested-boxes .nb-l4 > .nb-name { font-size: 16pt; color: var(--fmup-black); }
+
+/* ════════════════════════════════════════════════════════════════
+   AI DEFINITIONS — strike-through the first def when the real one
+   appears (uses :has(); falls back gracefully on older browsers).
+   ════════════════════════════════════════════════════════════════ */
+.ai-defs:has(.real-def.visible) .first-def {
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+  text-decoration-color: var(--fmup-grey-text);
+  opacity: 0.55;
+  transition: opacity 300ms var(--fmup-ease);
+}
+
+/* ════════════════════════════════════════════════════════════════
+   PROGRAMMING CONTRAST — Traditional vs ML (data flow diagram)
+   ════════════════════════════════════════════════════════════════ */
+.fmup-prog-contrast {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  flex: 1;
+  min-height: 0;
+  align-items: stretch;
+}
+.fmup-prog-contrast .prog-col {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 18px 20px;
+  background: var(--fmup-grey-bg);
+  border-top: 4px solid var(--fmup-grey-line);
+}
+.fmup-prog-contrast .prog-col.ml { border-top-color: var(--fmup-yellow); }
+.fmup-prog-contrast .prog-col h3 {
+  font-size: 18pt;
+  margin: 0 0 0.3em 0;
+  font-weight: 700;
+}
+.fmup-prog-contrast .prog-flow {
+  display: grid;
+  grid-template-columns: 100px 28px 110px 28px 100px;
+  align-items: center;
+  gap: 4px;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.fmup-prog-contrast .pf-input {
+  display: flex; flex-direction: column; gap: 4px;
+  font-size: 13pt; font-weight: 600;
+}
+.fmup-prog-contrast .pf-input span { padding: 6px 10px; background: var(--fmup-white); text-align: center; border: 1px solid var(--fmup-grey-line); }
+.fmup-prog-contrast .pf-arrow { text-align: center; font-size: 18pt; color: var(--fmup-grey-text); }
+.fmup-prog-contrast .pf-engine {
+  background: var(--fmup-black); color: var(--fmup-white);
+  padding: 14px 8px; text-align: center; font-size: 13pt; font-weight: 700;
+  line-height: 1.15;
+}
+.fmup-prog-contrast .pf-output {
+  background: var(--fmup-yellow); padding: 10px 12px;
+  text-align: center; font-size: 13pt; font-weight: 700;
+}
+.fmup-prog-contrast .prog-col p {
+  font-size: 13pt;
+  color: var(--fmup-grey-text);
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   PARADIGMS — three cards for ML paradigms
+   ════════════════════════════════════════════════════════════════ */
+.fmup-paradigms {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  flex: 1;
+  min-height: 0;
+}
+
+.fmup-paradigms .pcard {
+  background: var(--fmup-grey-bg);
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.fmup-paradigms .pcard .pnum {
+  font-size: 10pt;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fmup-grey-text);
+}
+
+.fmup-paradigms .pcard h3 {
+  font-size: 19pt;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.15;
+}
+
+.fmup-paradigms .pcard p {
+  font-size: 13pt;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.fmup-paradigms .pcard .pex {
+  margin-top: auto;
+  padding-top: 0.6em;
+  font-size: 11pt;
+  color: var(--fmup-grey-text);
+  font-style: italic;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   TOKEN LIST — predict next token examples
+   ════════════════════════════════════════════════════════════════ */
+.fmup-token-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  flex: 1;
+  min-height: 0;
+  justify-content: center;
+}
+
+.fmup-token-list .tk {
+  background: var(--fmup-grey-bg);
+  padding: 18px 24px;
+  font-size: 19pt;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.fmup-token-list .tk .blank {
+  display: inline-block;
+  min-width: 90px;
+  border-bottom: 3px solid var(--fmup-black);
+  font-weight: 700;
+  text-align: center;
+  padding: 0 10px;
+}
+
+.fmup-token-list .tk .blank.filled {
+  background: var(--fmup-yellow);
+  border-color: var(--fmup-yellow);
+  border-radius: 3px;
+}
+
+.fmup-token-list .tk .arrow {
+  color: var(--fmup-grey-text);
+  font-size: 14pt;
+  margin: 0 6px;
+}
+
+.fmup-token-list .tk-lead {
+  font-size: 15pt;
+  color: var(--fmup-grey-text);
+  margin: 0 0 6px 0;
+  font-style: italic;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   MODALITY GRID — 4-cell text/code/image/molecules
+   ════════════════════════════════════════════════════════════════ */
+.fmup-modality-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  flex: 1;
+  min-height: 0;
+}
+
+.fmup-modality-grid .mod {
+  background: var(--fmup-grey-bg);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  min-height: 0;
+}
+
+.fmup-modality-grid .mod .mod-img {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fmup-modality-grid .mod .mod-img img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.fmup-modality-grid .mod .mod-label {
+  font-size: 13pt;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   CONCERNS CLOUD — yellow oval pills
+   ════════════════════════════════════════════════════════════════ */
+.fmup-concerns-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 16px 18px;
+  flex: 1;
+  min-height: 0;
+  padding: 20px 30px;
+}
+
+.fmup-concerns-cloud .pill {
+  background: var(--fmup-yellow);
+  border-radius: 999px;
+  padding: 16px 30px;
+  font-size: 16pt;
+  font-weight: 700;
+  color: var(--fmup-black);
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.fmup-concerns-cloud .pill.size-l {
+  font-size: 19pt;
+  padding: 20px 36px;
+}
+
+.fmup-concerns-cloud .pill.size-s {
+  font-size: 14pt;
+  padding: 13px 24px;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   MOOD TEXT — large hero phrases ("AI everywhere…")
+   ════════════════════════════════════════════════════════════════ */
+.fmup-mood {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  flex: 1;
+  min-height: 0;
+  gap: 8px;
+}
+.fmup-mood .mood-line {
+  font-size: 56pt;
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+.fmup-mood .mood-line em { font-style: italic; font-weight: 700; }
+.fmup-mood .mood-sub {
+  font-size: 22pt;
+  color: var(--fmup-grey-text);
+  margin-top: 18px;
+  max-width: 80%;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   POST-IT — yellow note overlay (a callout in the corner)
+   ════════════════════════════════════════════════════════════════ */
+.fmup-postit {
+  position: relative;
+  background: var(--fmup-yellow);
+  padding: 16px 20px;
+  font-size: 14pt;
+  font-weight: 700;
+  line-height: 1.3;
+  max-width: 240px;
+  transform: rotate(-2.5deg);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  align-self: flex-end;
+}
+.fmup-postit::before {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 18px; height: 18px;
+  background: linear-gradient(225deg, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.08) 50%, transparent 50%);
+}
+
+/* ════════════════════════════════════════════════════════════════
+   ICEBERG — for LLMs slide (just a list of names with size hierarchy)
+   ════════════════════════════════════════════════════════════════ */
+.fmup-iceberg {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  min-height: 0;
+  gap: 18px;
+  padding: 20px 0;
+}
+.fmup-iceberg .ice-tip {
+  font-size: 32pt;
+  font-weight: 700;
+  color: var(--fmup-black);
+  padding: 14px 36px;
+  background: var(--fmup-yellow);
+}
+.fmup-iceberg .ice-line {
+  height: 2px;
+  width: 70%;
+  background: var(--fmup-black);
+  margin: 8px 0 14px 0;
+  position: relative;
+}
+.fmup-iceberg .ice-line::after {
+  content: 'waterline';
+  position: absolute; right: 0; top: -22px;
+  font-size: 11pt; color: var(--fmup-grey-text);
+  font-style: italic;
+}
+.fmup-iceberg .ice-rest {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 24px;
+  justify-content: center;
+  max-width: 75%;
+}
+.fmup-iceberg .ice-rest .ice-name {
+  font-size: 22pt;
+  font-weight: 600;
+  color: var(--fmup-grey-text);
+}
+
+/* ════════════════════════════════════════════════════════════════
+   STAT GRID — small icon-led blocks (Reflexão 1, "Falar de Dados")
+   ════════════════════════════════════════════════════════════════ */
+.fmup-stat-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+  min-height: 0;
+}
+.fmup-stat-rows .srow {
+  background: var(--fmup-grey-bg);
+  padding: 18px 24px;
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 20px;
+  align-items: center;
+  border-left: 4px solid var(--fmup-yellow);
+}
+.fmup-stat-rows .srow .sicon {
+  font-size: 26pt;
+  text-align: center;
+  color: var(--fmup-black);
+}
+.fmup-stat-rows .srow h3 {
+  font-size: 18pt;
+  font-weight: 700;
+  margin: 0 0 0.2em 0;
+}
+.fmup-stat-rows .srow p {
+  font-size: 14pt;
+  color: var(--fmup-grey-text);
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   PYRAMID CALLOUT — for AI Act risk levels (label + description per level)
+   ════════════════════════════════════════════════════════════════ */
+.fmup-pyramid-callout {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 28px;
+  flex: 1;
+  min-height: 0;
+}
+.fmup-pyramid-callout .pyr-image {
+  background: var(--fmup-grey-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  min-height: 0;
+}
+.fmup-pyramid-callout .pyr-image img {
+  max-width: 100%; max-height: 100%; object-fit: contain;
+}
+.fmup-pyramid-callout .pyr-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.fmup-pyramid-callout .pyr-text .pyr-tag {
+  font-size: 11pt;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fmup-grey-text);
+  margin-bottom: 0.4em;
+}
+.fmup-pyramid-callout .pyr-text h3 {
+  font-size: 26pt;
+  font-weight: 700;
+  margin: 0 0 0.5em 0;
+}
+.fmup-pyramid-callout .pyr-text p {
+  font-size: 14pt;
+  line-height: 1.45;
+  margin: 0 0 0.6em 0;
 }
 
 /* ════════════════════════════════════════════════════════════════
