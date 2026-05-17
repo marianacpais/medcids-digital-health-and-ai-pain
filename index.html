@@ -1,2613 +1,305 @@
 <!doctype html>
-<html lang="en">
+<html lang="pt">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Digital Health Strategies in Pain Management</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reset.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Health Strategies in Pain Management — escolher versão</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link rel="stylesheet" href="assets/styles.css">
+  <style>
+    :root {
+      --fmup-yellow: #FED517;
+      --fmup-grey-bg: #F2F2F2;
+      --fmup-grey-line: #D1D1D1;
+      --fmup-grey-text: #5A5A5A;
+      --fmup-black: #000000;
+      --fmup-white: #FFFFFF;
+      --fmup-ease: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--fmup-white);
+      color: var(--fmup-black);
+      font-family: 'Inter', 'Calibri', 'Segoe UI', system-ui, sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; }
+
+    .page {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 64px 40px 40px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ─── Header ─────────────────────────── */
+    header.intro {
+      margin-bottom: 56px;
+    }
+    .eyebrow {
+      display: inline-block;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--fmup-grey-text);
+      margin-bottom: 18px;
+      padding: 4px 10px;
+      background: var(--fmup-yellow);
+      color: var(--fmup-black);
+    }
+    h1 {
+      font-size: clamp(32px, 4.4vw, 52px);
+      line-height: 1.08;
+      font-weight: 800;
+      margin: 0 0 18px 0;
+      letter-spacing: -0.015em;
+    }
+    .title-rule {
+      width: 64px;
+      height: 4px;
+      background: var(--fmup-black);
+      margin: 22px 0;
+    }
+    .meta {
+      color: var(--fmup-grey-text);
+      font-size: 16px;
+      margin: 0;
+    }
+    .meta strong { color: var(--fmup-black); }
+
+    /* ─── Cards ─────────────────────────── */
+    .picker {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 28px;
+      margin-bottom: 56px;
+    }
+    @media (max-width: 760px) {
+      .picker { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      display: flex;
+      flex-direction: column;
+      padding: 36px 32px 30px;
+      background: var(--fmup-grey-bg);
+      border: 1px solid var(--fmup-grey-line);
+      text-decoration: none;
+      color: var(--fmup-black);
+      position: relative;
+      transition: transform 200ms var(--fmup-ease), border-color 200ms var(--fmup-ease), background 200ms var(--fmup-ease);
+    }
+    .card::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 6px;
+      background: var(--fmup-yellow);
+      transition: height 200ms var(--fmup-ease);
+    }
+    .card:hover {
+      background: var(--fmup-white);
+      border-color: var(--fmup-black);
+      transform: translateY(-3px);
+    }
+    .card:hover::before { height: 10px; }
+
+    .card .tag {
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: var(--fmup-grey-text);
+      margin-bottom: 14px;
+    }
+    .card h2 {
+      font-size: 28px;
+      font-weight: 700;
+      margin: 0 0 10px 0;
+      letter-spacing: -0.01em;
+      line-height: 1.15;
+    }
+    .card .lede {
+      font-size: 15px;
+      color: var(--fmup-grey-text);
+      margin: 0 0 22px 0;
+      line-height: 1.55;
+    }
+    .card .stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 26px;
+    }
+    .card .stat {
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 10px;
+      background: var(--fmup-white);
+      border: 1px solid var(--fmup-grey-line);
+      color: var(--fmup-black);
+      white-space: nowrap;
+    }
+    .card:hover .stat { background: var(--fmup-grey-bg); }
+    .card .stat.accent { background: var(--fmup-yellow); border-color: var(--fmup-yellow); }
+    .card .cta {
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+    .card .cta .arrow {
+      width: 28px;
+      height: 28px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--fmup-black);
+      color: var(--fmup-white);
+      transition: transform 200ms var(--fmup-ease);
+    }
+    .card:hover .cta .arrow { transform: translateX(4px); }
+
+    /* ─── Extras ─────────────────────────── */
+    .extras {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px 28px;
+      padding: 22px 0 0 0;
+      border-top: 1px solid var(--fmup-grey-line);
+      margin-bottom: 40px;
+    }
+    .extras a {
+      font-size: 14px;
+      color: var(--fmup-grey-text);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: color 150ms var(--fmup-ease);
+    }
+    .extras a:hover { color: var(--fmup-black); }
+    .extras a i { color: var(--fmup-black); }
+
+    /* ─── Footer ─────────────────────────── */
+    footer.foot {
+      margin-top: auto;
+      padding-top: 28px;
+      border-top: 1px solid var(--fmup-grey-line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 18px;
+    }
+    footer.foot .who {
+      font-size: 13px;
+      color: var(--fmup-grey-text);
+    }
+    footer.foot .who strong { color: var(--fmup-black); font-weight: 600; }
+    footer.foot .logos {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    footer.foot .logos img {
+      height: 36px;
+      width: auto;
+      object-fit: contain;
+    }
+  </style>
 </head>
 <body>
-<div class="reveal">
-  <div class="slides">
-
-    <!-- ══════════════════════════════════════════
-         1. CAPA
-         ══════════════════════════════════════════ -->
-    <section class="fmup-cover" data-transition="slide">
-      <div class="cover-body">
-        <h1>Digital Health Strategies in Pain Management</h1>
-        <div class="accent-line"></div>
-        <div class="subtitle">MEDCIDS</div>
-        <div class="meta-row">
-          <div class="meta-block">
-            <div class="author">Mariana Canelas Pais</div>
-          </div>
-          <div class="meta-block right">
-            <div class="date">8 de maio de 2026</div>
-            <div class="institution">MEDCIDS · FMUP</div>
-          </div>
-        </div>
-      </div>
-      <footer class="fmup-cover-footer">
-        <img class="logo-left" src="assets/logo-fmup-uporto.png" alt="U.Porto FMUP">
-        <img class="wordmark-right" src="assets/wordmark-fmup.png" alt="Faculdade de Medicina, Universidade do Porto">
-      </footer>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         2. WHO AM I
-         ══════════════════════════════════════════ -->
-    <section class="fmup-content">
-      <h2>Who am I</h2>
-      <div class="title-rule"></div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-image-side reverse">
-          <div class="side-text" style="justify-content: center;">
-            <p style="font-size: 22pt; font-weight: 700; margin: 0 0 0.6em 0;">Mariana Canelas Pais</p>
-            <p style="margin: 0.3em 0;">
-              <i class="fa-brands fa-linkedin" style="margin-right: 12px;"></i>
-              <a href="https://www.linkedin.com/in/mariana-canelas-pais-304489175/" target="_blank">linkedin.com/in/mariana-canelas-pais-304489175</a>
-            </p>
-            <p style="margin: 0.3em 0;">
-              <i class="fa-regular fa-envelope" style="margin-right: 12px;"></i>
-              <a href="mailto:mcpais@med.up.pt">mcpais@med.up.pt</a>
-            </p>
-          </div>
-          <div class="image-frame">
-            <img src="assets/mariana-photo.png" alt="Photo of Mariana Canelas Pais">
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         3. YOUR TURN — audience prompt
-         ══════════════════════════════════════════ -->
-    <section class="fmup-content">
-      <h2>Your turn</h2>
-      <div class="title-rule"></div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-image-cells">
-          <div class="cell">
-            <i class="icon fa-solid fa-user-doctor"></i>
-            <div class="cell-caption">Clinicians caring for patients with chronic pain</div>
-          </div>
-          <div class="cell">
-            <i class="icon fa-solid fa-laptop-medical"></i>
-            <div class="cell-caption">Researchers, data scientists, digital health</div>
-          </div>
-          <div class="cell dots">…</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         4. TODAY'S AGENDA
-         ══════════════════════════════════════════ -->
-    <section class="fmup-content">
-      <h2>Today's agenda</h2>
-      <div class="title-rule"></div>
-      <div class="body">
-        <div class="fmup-cards cols-3">
-          <div class="fmup-card">
-            <div class="accent"></div>
-            <div class="card-label">Block I</div>
-            <h3>Data Foundations in Chronic Pain</h3>
-            <div class="card-time">17:00 – 17:40</div>
-          </div>
-          <div class="fmup-card">
-            <div class="accent"></div>
-            <div class="card-label">Block II</div>
-            <h3>From Data to Evidence</h3>
-            <div class="card-time">17:40 – 18:30</div>
-          </div>
-          <div class="fmup-card">
-            <div class="accent"></div>
-            <div class="card-label">Block III</div>
-            <h3>AI &amp; Digital Technologies</h3>
-            <div class="card-time">18:30 – 19:30</div>
-          </div>
-        </div>
-        <div class="body-footer">19:30 – 20:00 · Discussion, Q&amp;A, and wrap-up</div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         5. RHETORICAL QUESTION
-         ══════════════════════════════════════════ -->
-    <section class="fmup-quote">
-      <blockquote>How many of your clinical decisions about chronic pain are based on data you have never actually seen?</blockquote>
-      <div class="sub-prompt">Take a moment. Think about your last 5 patients.</div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         6. BLOCK I — SECTION DIVIDER
-         ══════════════════════════════════════════ -->
-    <section class="fmup-section" data-transition="fade">
-      <div class="label">Block I</div>
-      <h2>Data Foundations in Chronic Pain Medicine</h2>
-      <div class="subtitle">Where does pain data come from — and why does it matter?</div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         7. HEALTHCARE AS A COMPLEX FIELD — illustrative
-         ══════════════════════════════════════════ -->
-    <section class="fmup-content">
-      <h2>Healthcare as a complex field</h2>
-      <div class="title-rule"></div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-image-full">
-          <div class="image-frame" style="background: var(--fmup-white);">
-            <img src="assets/healthcare-complex-field.png" alt="Illustration of the healthcare ecosystem: clinicians, patients, devices, dashboards, medications and data flowing between them">
-          </div>
-        </div>
-      </div>
-      <div class="attribution-badge">
-        <span class="credit-line credit-strong">Mariana × Midjourney</span>
-        <span class="credit-line">Human &amp; AI</span>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         8. WHAT DATA DO WE CAPTURE — icon grid around patient
-         ══════════════════════════════════════════ -->
-    <section class="fmup-content">
-      <h2>What data do we capture about pain patients?</h2>
-      <div class="title-rule"></div>
-      <div class="subtitle-line">A visual inventory of the data generated along a chronic pain patient's journey.</div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-icon-grid">
-          <div class="cell">
-            <i class="icon fa-solid fa-folder-tree"></i>
-            <div class="label"><span class="label-strong">EHR</span>diagnoses, meds, procedures, vitals</div>
-          </div>
-          <div class="cell">
-            <i class="icon fa-solid fa-clipboard-list"></i>
-            <div class="label"><span class="label-strong">Clinical notes</span>free-text, function, comorbidities</div>
-          </div>
-          <div class="cell">
-            <i class="icon fa-solid fa-square-poll-vertical"></i>
-            <div class="label"><span class="label-strong">PROs</span>NRS / VAS, BPI, PCS, PROMIS</div>
-          </div>
-          <div class="cell">
-            <i class="icon fa-solid fa-x-ray"></i>
-            <div class="label"><span class="label-strong">Imaging &amp; labs</span>radiology, biomarkers</div>
-          </div>
-          <div class="cell center">
-            <i class="icon fa-solid fa-user-injured"></i>
-            <div class="label"><span class="label-strong">Patient</span></div>
-          </div>
-          <div class="cell">
-            <i class="icon fa-solid fa-heart-pulse"></i>
-            <div class="label"><span class="label-strong">Wearables</span>passive monitoring, activity</div>
-          </div>
-          <div class="cell">
-            <i class="icon fa-solid fa-file-invoice-dollar"></i>
-            <div class="label"><span class="label-strong">Claims / billing</span>encounters, costs</div>
-          </div>
-          <div class="cell">
-            <i class="icon fa-solid fa-mobile-screen"></i>
-            <div class="label"><span class="label-strong">Patient-reported</span>diaries, apps</div>
-          </div>
-          <div class="cell empty"></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         9. STRUCTURE OF AN EHR — two diagrams
-         ══════════════════════════════════════════ -->
-    <!-- EHR structure — first the single record -->
-    <section class="fmup-content">
-      <h2>Structure of an Electronic Health Record</h2>
-      <div class="title-rule"></div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-image-full">
-          <div class="image-frame">
-            <img src="assets/ehr-structure.png" alt="Diagram showing an EHR at the centre, surrounded by physicians, hospitals, radiology reports, vital signs, insurers, and laboratory data">
-          </div>
-          <div class="caption">appinventiv.com/blog/ehr-software-development</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- EHR structure — then the network (HIE) -->
-    <section class="fmup-content">
-      <h2>Structure of an Electronic Health Record</h2>
-      <div class="title-rule"></div>
-      <div class="subtitle-line">Records talk to each other through Health Information Exchanges.</div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-image-full">
-          <div class="image-frame">
-            <img src="assets/hie-network.png" alt="Diagram of a Health Information Exchange (HIE) connecting EHRs from specialty physicians, local health departments, community health centres, primary care, and hospitals">
-          </div>
-          <div class="caption">forumsys.com/2022/08/11/health-information-exchange</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         10. THE PAINS OF PAIN DATA — split contrast
-         ══════════════════════════════════════════ -->
-    <section class="fmup-content">
-      <h2>The pains of pain data</h2>
-      <div class="title-rule"></div>
-      <div class="subtitle-line">A single numeric pain score captures almost nothing about the patient's actual experience.</div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-split-contrast">
-          <div class="pane sterile">
-            <div class="pane-label">What the database sees</div>
-            <div class="big-number">7</div>
-            <div class="number-label">NRS · today</div>
-          </div>
-          <div class="pane rich">
-            <div class="pane-label">What the patient said</div>
-            <blockquote>“It's worst at night, so I barely sleep. I had to give up gardening last year. Some days I'm fine for hours, then it flares and I'm scared to leave the house. I keep thinking the surgery made it worse — nobody really listens to that.”</blockquote>
-            <div class="caveat" style="border-top:none; padding-top:14px; margin-top:14px;">
-              <span class="caveat-strong">Missed by the score:</span>
-              temporal pattern, location, function, catastrophizing, fear-avoidance, emotional context, the patient's own explanatory model.
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         11. PROs — definition + 3 reasons
-         ══════════════════════════════════════════ -->
-    <section class="fmup-content tight">
-      <h2>Patient-Reported Outcomes (PROs) in chronic pain</h2>
-      <div class="title-rule"></div>
-      <div class="body">
-        <div class="fmup-definition">
-          <span class="term">PROs.</span>Information reported directly by patients about their health, symptoms, quality of life, and treatment experience — without clinician interpretation.
-        </div>
-        <div class="fmup-cards cols-3" style="gap: 14px;">
-          <div class="fmup-card soft" style="text-align: center;">
-            <i class="fa-solid fa-comment-medical" style="font-size: 30pt; margin-bottom: 10px; display: block;"></i>
-            <h3 style="font-size: 16pt;">Patient voice</h3>
-            <p style="font-size: 13pt;">Pain is inherently subjective — no biomarker captures it fully. PROs are the only direct window into the patient's experience.</p>
-          </div>
-          <div class="fmup-card soft" style="text-align: center;">
-            <i class="fa-solid fa-stethoscope" style="font-size: 30pt; margin-bottom: 10px; display: block;"></i>
-            <h3 style="font-size: 16pt;">Clinical outcome</h3>
-            <p style="font-size: 13pt;">Function, intensity and impact captured longitudinally — a basis for monitoring response and shared decision-making.</p>
-          </div>
-          <div class="fmup-card soft" style="text-align: center;">
-            <i class="fa-solid fa-scale-balanced" style="font-size: 30pt; margin-bottom: 10px; display: block;"></i>
-            <h3 style="font-size: 16pt;">Regulatory relevance</h3>
-            <p style="font-size: 13pt;">Increasingly required by regulators and payers as a measure of treatment effect in chronic conditions.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         12. WEARABLES & DIGITAL BIOMARKERS — 2x3 grid
-         ══════════════════════════════════════════ -->
-    <section class="fmup-content tight">
-      <h2>Wearables and digital biomarkers in pain</h2>
-      <div class="title-rule"></div>
-      <div class="body">
-        <div class="fmup-definition">
-          <span class="term">Digital biomarkers.</span>Objective, quantitative, physiological or behavioural data collected by digital devices.
-        </div>
-        <div class="fmup-cards cols-3" style="gap: 12px;">
-          <div class="fmup-card soft">
-            <h3 style="font-size: 15pt;"><i class="fa-solid fa-person-running" style="margin-right: 8px;"></i>Physical activity</h3>
-            <p style="font-size: 13pt;">Accelerometry as a proxy for functional capacity.</p>
-          </div>
-          <div class="fmup-card soft">
-            <h3 style="font-size: 15pt;"><i class="fa-solid fa-bed" style="margin-right: 8px;"></i>Sleep quality</h3>
-            <p style="font-size: 13pt;">A critical pain modulator; bidirectional with intensity.</p>
-          </div>
-          <div class="fmup-card soft">
-            <h3 style="font-size: 15pt;"><i class="fa-solid fa-heart-pulse" style="margin-right: 8px;"></i>Heart rate variability</h3>
-            <p style="font-size: 13pt;">An indicator of autonomic nervous system state.</p>
-          </div>
-          <div class="fmup-card soft">
-            <h3 style="font-size: 15pt;"><i class="fa-solid fa-bolt" style="margin-right: 8px;"></i>Skin conductance</h3>
-            <p style="font-size: 13pt;">Arousal and stress responses, linked to flares.</p>
-          </div>
-          <div class="fmup-card soft">
-            <h3 style="font-size: 15pt;"><i class="fa-solid fa-location-dot" style="margin-right: 8px;"></i>GPS / mobility</h3>
-            <p style="font-size: 13pt;">Social and functional participation outside the home.</p>
-          </div>
-          <div class="fmup-card soft">
-            <h3 style="font-size: 15pt;"><i class="fa-solid fa-mobile-screen-button" style="margin-right: 8px;"></i>Smartphone behaviour</h3>
-            <p style="font-size: 13pt;">Typing speed and screen use as mood / cognitive signals.</p>
-          </div>
-        </div>
-        <div class="fmup-caveat">
-          <span class="caveat-strong">Caveat.</span>None of these measure pain directly. They measure signals that correlate with pain or its consequences.
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         13. DATA SOURCES BEYOND THE CLINIC — concentric rings
-         ══════════════════════════════════════════ -->
-    <section class="fmup-content tight">
-      <h2>Data sources beyond the clinic</h2>
-      <div class="title-rule"></div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-rings">
-          <div class="ring-stage" style="max-width: 88%;">
-            <div class="ring r1"><span class="ring-label">Social &amp; environmental</span></div>
-            <div class="ring r2"><span class="ring-label">System-level</span></div>
-            <div class="ring r3"><span class="ring-label">Clinical</span></div>
-            <div class="ring r4"><span class="ring-label">Patient</span></div>
-          </div>
-          <div class="ring-list">
-            <div class="ring-item">
-              <span class="item-label">Claims / administrative.</span>Diagnoses, procedures, prescriptions, utilisation — large-scale and longitudinal, but coded for billing not nuance.
-            </div>
-            <div class="ring-item">
-              <span class="item-label">Disease registries.</span>Systematic collection on specific cohorts (fibromyalgia, CRPS) — research-grade, limited to enrolled patients.
-            </div>
-            <div class="ring-item">
-              <span class="item-label">Social determinants of health.</span>Housing, employment, socioeconomic status — major pain modulators, rarely in the EHR.
-            </div>
-            <div class="ring-item">
-              <span class="item-label">Social media &amp; communities.</span>Pain forums and health apps — unsolicited patient voice, rich but noisy.
-            </div>
-            <div class="ring-item">
-              <span class="item-label">Environmental.</span>Weather and pollution — trigger factors for several pain conditions.
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         14. MAIN OBSTACLES — overview (3 cards)
-         ══════════════════════════════════════════ -->
-    <section class="fmup-content">
-      <h2>Main obstacles</h2>
-      <div class="title-rule"></div>
-      <div class="subtitle-line">Three things that get in the way of using health data at scale.</div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-cards cols-3" style="flex:1; align-items:stretch;">
-          <div class="fmup-card soft" style="text-align:center; display:flex; flex-direction:column; justify-content:center;">
-            <i class="fa-solid fa-cubes" style="font-size: 50pt; margin-bottom: 18px; display:block;"></i>
-            <p style="font-size: 17pt; line-height: 1.4;">Sensitive health data is often kept in <strong>silos</strong>.</p>
-          </div>
-          <div class="fmup-card soft" style="text-align:center; display:flex; flex-direction:column; justify-content:center;">
-            <i class="fa-solid fa-shield-halved" style="font-size: 50pt; margin-bottom: 18px; display:block;"></i>
-            <p style="font-size: 17pt; line-height: 1.4;">Interoperability, security and <strong>privacy</strong> issues.</p>
-          </div>
-          <div class="fmup-card soft" style="text-align:center; display:flex; flex-direction:column; justify-content:center;">
-            <i class="fa-solid fa-server" style="font-size: 50pt; margin-bottom: 18px; display:block;"></i>
-            <p style="font-size: 17pt; line-height: 1.4;"><strong>Infrastructure</strong> insufficiency for major non-clinical activities.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         15. MAIN OBSTACLES — silos
-         ══════════════════════════════════════════ -->
-    <section class="fmup-content">
-      <h2>Main obstacles</h2>
-      <div class="title-rule"></div>
-      <div class="subtitle-line">Obstacle 1 — Data silos.</div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-obstacle-detail">
-          <div class="obstacle-text-pane">
-            <div class="obstacle-card">
-              <i class="icon fa-solid fa-cubes"></i>
-              <div class="label">Sensitive health data is often kept in <span class="label-key">silos</span>.</div>
-            </div>
-          </div>
-          <div class="obstacle-image-pane">
-            <img src="assets/midjourney-silos.png" alt="Field of glass-and-steel data silos under a sky raining points of light">
-          </div>
-        </div>
-      </div>
-      <div class="attribution-badge">
-        <span class="credit-line credit-strong">Data silos</span>
-        <span class="credit-line">Mariana × Midjourney · Human &amp; AI</span>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         16. MAIN OBSTACLES — infrastructure
-         ══════════════════════════════════════════ -->
-    <section class="fmup-content">
-      <h2>Main obstacles</h2>
-      <div class="title-rule"></div>
-      <div class="subtitle-line">Obstacle 2 — Infrastructure.</div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-obstacle-detail reverse">
-          <div class="obstacle-image-pane">
-            <img src="assets/midjourney-infrastructure.png" alt="Futuristic datacenter corridor with neon-lit server racks">
-          </div>
-          <div class="obstacle-text-pane">
-            <div class="obstacle-card">
-              <i class="icon fa-solid fa-server"></i>
-              <div class="label"><span class="label-key">Infrastructure</span> insufficiency for major non-clinical activities.</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="attribution-badge">
-        <span class="credit-line credit-strong">A futuristic datacenter</span>
-        <span class="credit-line">Mariana × Midjourney · Human &amp; AI</span>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         17. MAIN OBSTACLES — privacy
-         ══════════════════════════════════════════ -->
-    <section class="fmup-content">
-      <h2>Main obstacles</h2>
-      <div class="title-rule"></div>
-      <div class="subtitle-line">Obstacle 3 — Privacy &amp; security.</div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-obstacle-detail">
-          <div class="obstacle-text-pane">
-            <div class="obstacle-card">
-              <i class="icon fa-solid fa-shield-halved"></i>
-              <div class="label">Interoperability, security and <span class="label-key">privacy</span> issues.</div>
-            </div>
-          </div>
-          <div class="obstacle-image-pane">
-            <img src="assets/midjourney-privacy.png" alt="Abstract digital art of a person seen through streams of data — a representation of privacy leaks in health data">
-          </div>
-        </div>
-      </div>
-      <div class="attribution-badge">
-        <span class="credit-line credit-strong">Data privacy leaks</span>
-        <span class="credit-line">Mariana × Midjourney · Human &amp; AI</span>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         18. DATA FRAGMENTATION ACROSS LEVELS OF CARE
-         ══════════════════════════════════════════ -->
-    <section class="fmup-content">
-      <h2>Data fragmentation across levels of care</h2>
-      <div class="title-rule"></div>
-      <div class="subtitle-line">The same patient generates disconnected records as they move between primary care, abstract data systems, and hospital teams.</div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-image-full">
-          <div class="image-frame" style="background: var(--fmup-white);">
-            <img src="assets/data-fragmentation.png" alt="Composite illustration: a primary-care physician on the left, a field of data silos in the centre, and a hospital ward on the right, connected by a stylised data line">
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         19. THE NEED FOR STANDARDS
-         ══════════════════════════════════════════ -->
-    <!-- Standards — visual teaser (logos / names only, before the explained version) -->
-    <section class="fmup-content">
-      <h2>The need for standards</h2>
-      <div class="title-rule"></div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1; justify-content:center;">
-        <div class="fmup-standards-grid teaser">
-          <div class="standard logo">
-            <img src="assets/logo-fhir.png" alt="HL7 FHIR logo">
-          </div>
-          <div class="standard">
-            <div class="name">ICD<span class="name-thin">9 · 10 · 11</span></div>
-          </div>
-          <div class="standard logo">
-            <img src="assets/logo-snomed.png" alt="SNOMED CT logo">
-          </div>
-          <div class="standard logo">
-            <img src="assets/logo-openehr.png" alt="openEHR logo">
-          </div>
-          <div class="standard">
-            <div class="name">OHDSI<span class="name-thin">OMOP</span></div>
-          </div>
-          <div class="standard dots">…</div>
-        </div>
-      </div>
-    </section>
-
-    <section class="fmup-content">
-      <h2>The need for standards</h2>
-      <div class="title-rule"></div>
-      <div class="subtitle-line">Common languages so different systems can actually talk to each other.</div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-standards-grid">
-          <div class="standard">
-            <div class="name">HL7<span class="name-thin">FHIR</span></div>
-            <div class="meta">An exchange standard for clinical data — the API layer between systems.</div>
-          </div>
-          <div class="standard">
-            <div class="name">ICD<span class="name-thin">9 · 10 · 11</span></div>
-            <div class="meta">WHO's classification of diseases — the global vocabulary for diagnoses.</div>
-          </div>
-          <div class="standard">
-            <div class="name">SNOMED<span class="name-thin">CT</span></div>
-            <div class="meta">The most expressive clinical terminology — for findings, procedures and observations.</div>
-          </div>
-          <div class="standard">
-            <div class="name">openEHR</div>
-            <div class="meta">A specification for clinical models — vendor-neutral health record architecture.</div>
-          </div>
-          <div class="standard">
-            <div class="name">OHDSI<span class="name-thin">OMOP</span></div>
-            <div class="meta">A common data model for observational research across institutions.</div>
-          </div>
-          <div class="standard dots">…</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         20. WHY INTEROPERABILITY MATTERS FOR PAIN DATA
-         ══════════════════════════════════════════ -->
-    <section class="fmup-content">
-      <h2>Why interoperability matters for pain data</h2>
-      <div class="title-rule"></div>
-      <div class="subtitle-line">Pain patients see ~5–7 different providers. Data is scattered. Without interoperability, every system is an island.</div>
-      <div class="body">
-        <div class="fmup-definition">
-          <span class="term">HL7 FHIR enables.</span>
-          <ul class="fmup-sublist">
-            <li>Patient apps requesting medication lists from hospital systems.</li>
-            <li>The GP receiving the specialist's notes in real time.</li>
-            <li>Research platforms aggregating EHR data across sites.</li>
-          </ul>
-        </div>
-        <p style="font-size: 17pt; margin-top: 1em;">The <strong>European Health Data Space (EHDS)</strong> builds on FHIR for cross-border data access.</p>
-        <div class="fmup-highlight">
-          <span class="highlight-label">Key insight</span>
-          Standardisation is the prerequisite for everything else — analytics, AI, real-world evidence.
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         21. DATA QUALITY
-         ══════════════════════════════════════════ -->
-    <section class="fmup-content">
-      <h2>Data quality</h2>
-      <div class="title-rule"></div>
-      <div class="subtitle-line">What real EHR data actually looks like — once you start querying it.</div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-quality-grid">
-          <div class="item fragment">
-            <div class="image-wrap">
-              <img src="assets/dq-cake.png" alt="Photo of a person eating cake">
-            </div>
-            <div class="caption">HbA1c of 500%</div>
-          </div>
-          <div class="item fragment">
-            <div class="image-wrap">
-              <img src="assets/dq-1840.png" alt="Illustration of a Victorian woman in a 1896 fashion plate">
-            </div>
-            <div class="caption">Woman born in 1840</div>
-          </div>
-          <div class="item fragment">
-            <div class="image-wrap">
-              <img src="assets/dq-zombie.png" alt="Cartoon zombie">
-            </div>
-            <div class="caption">Zombies</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         22. EVIDENCE GENERATION — clean flow
-         ══════════════════════════════════════════ -->
-    <section class="fmup-content">
-      <h2>Evidence generation</h2>
-      <div class="title-rule"></div>
-      <div class="subtitle-line">From source data to reliable evidence — the standardised path.</div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-image-full">
-          <div class="image-frame" style="background: var(--fmup-white);">
-            <img src="assets/evidence-flow.png" alt="Flow diagram: patient-level data in source system → patient-level data in common data model → reliable evidence (chart and report icons)">
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         23. EVIDENCE GENERATION — with warnings
-         ══════════════════════════════════════════ -->
-    <section class="fmup-content">
-      <h2>Evidence generation, in practice</h2>
-      <div class="title-rule"></div>
-      <div class="subtitle-line">Every step of the path is a place where things can go wrong.</div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-image-full">
-          <div class="image-frame" style="background: var(--fmup-white);">
-            <img src="assets/evidence-flow-warnings.png" alt="The same evidence-generation flow, now with warning triangles overlaid at every stage and along every connection">
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         24. THE OMOP CDM — visual overview
-         ══════════════════════════════════════════ -->
-    <section class="fmup-content">
-      <h2>The OMOP Common Data Model</h2>
-      <div class="title-rule"></div>
-      <div class="body">
-        <div class="fmup-definition">
-          <span class="term">OMOP.</span>Observational Medical Outcomes Partnership — now stewarded by <strong>OHDSI</strong> ("Odyssey").
-        </div>
-        <p style="font-size: 16pt; font-style: italic; line-height: 1.5; margin: 0.6em 0; color: var(--fmup-grey-text);">"To improve health by empowering a community to collaboratively generate evidence that promotes better health decisions and better care."</p>
-        <p style="font-size: 16pt; margin: 0.6em 0;">Optimised for <strong>population-level research</strong>, drug safety, and comparative effectiveness — not for clinical care.</p>
-        <div class="fmup-icon-row">
-          <div class="item">
-            <i class="icon fa-solid fa-user"></i>
-            <span class="label-strong">Patient-centric</span>
-            <span class="label-meta">individual records, not aggregates</span>
-          </div>
-          <div class="item">
-            <i class="icon fa-solid fa-layer-group"></i>
-            <span class="label-strong">Domain-oriented</span>
-            <span class="label-meta">conditions, drugs, procedures, measurements</span>
-          </div>
-          <div class="item">
-            <i class="icon fa-solid fa-book"></i>
-            <span class="label-strong">Vocabulary-embedded</span>
-            <span class="label-meta">SNOMED · RxNorm · LOINC · ICD</span>
-          </div>
-          <div class="item">
-            <i class="icon fa-solid fa-clock-rotate-left"></i>
-            <span class="label-strong">Provenance preserved</span>
-            <span class="label-meta">source codes kept alongside standard</span>
-          </div>
-          <div class="item">
-            <i class="icon fa-solid fa-database"></i>
-            <span class="label-strong">Tech-neutral</span>
-            <span class="label-meta">SQL Server · Postgres · Oracle</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         25. WHY OMOP EXISTS — origins & mission
-         ══════════════════════════════════════════ -->
-    <section class="fmup-content">
-      <h2>Why OMOP exists — origins and mission</h2>
-      <div class="title-rule"></div>
-      <div class="body body--narrow">
-        <p><strong>OMOP</strong> began as a public–private partnership to study product safety using observational health databases.</p>
-        <p style="margin-top: 1em;">In <strong>2014</strong>, its assets were transferred to <strong>OHDSI</strong> — Observational Health Data Sciences and Informatics ("Odyssey") — a global research community.</p>
-        <div class="fmup-highlight" style="margin-top: 1.4em;">
-          <span class="highlight-label">Mission</span>
-          To improve health by empowering a community to collaboratively generate the evidence that promotes better health decisions and better care.
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         26. DESIGN PHILOSOPHY
-         ══════════════════════════════════════════ -->
-    <section class="fmup-content">
-      <h2>Design philosophy</h2>
-      <div class="title-rule"></div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-hero-quote">
-          <div class="pre-label">The single design choice that explains the rest</div>
-          <p class="lead">Optimised for <span class="lead-key">population-level research</span>, drug-safety surveillance, and comparative effectiveness — <span class="lead-key">not</span> for delivering care or processing claims.</p>
-          <p class="followup">This is why ETL is hard: you're translating operational artefacts into analytical ones.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         27. OMOP CDM KEY PRINCIPLES (7 pills)
-         ══════════════════════════════════════════ -->
-    <section class="fmup-content">
-      <h2>OMOP CDM — key principles</h2>
-      <div class="title-rule"></div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-pill-grid">
-          <div class="pill">Patient-centric</div>
-          <div class="pill">Vocabulary and Data Model are blended</div>
-          <div class="pill">Domain-oriented concepts</div>
-          <div class="pill">Accommodates data from various sources</div>
-          <div class="pill">Preserved data provenance</div>
-          <div class="pill">Extendable and evolving</div>
-          <div class="pill span-2">Technology neutrality</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         28. OMOP CDM SCHEMA
-         ══════════════════════════════════════════ -->
-    <section class="fmup-content">
-      <h2>OMOP CDM — schema</h2>
-      <div class="title-rule"></div>
-      <div class="subtitle-line">Six families of tables: clinical, health-system, derived, results, health-economics, and the standardised vocabularies.</div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-image-full">
-          <div class="image-frame" style="background: var(--fmup-white);">
-            <img src="assets/omop-cdm-schema.png" alt="The full OMOP CDM schema diagram, showing the standardised clinical-data tables on the left, plus the health-system, derived, results, health-economics, and vocabularies blocks">
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         29. THE OHDSI ECOSYSTEM
-         ══════════════════════════════════════════ -->
-    <section class="fmup-content">
-      <h2>The OHDSI ecosystem</h2>
-      <div class="title-rule"></div>
-      <div class="subtitle-line">An open, multi-stakeholder research community — code, data models, methods, and people.</div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-image-full">
-          <div class="image-frame" style="background: var(--fmup-white);">
-            <img src="assets/ohdsi-ecosystem.png" alt="Screenshot of the OHDSI homepage with welcome text and an invitation to the 2026 Global Symposium">
-          </div>
-        </div>
-      </div>
-      <div class="attribution-badge" style="background: var(--fmup-grey-bg);">
-        <span class="credit-line credit-strong">https://www.ohdsi.org/</span>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         30. NAMING CONVENTIONS
-         ══════════════════════════════════════════ -->
-    <section class="fmup-content">
-      <h2>Naming conventions</h2>
-      <div class="title-rule"></div>
-      <div class="subtitle-line">Every domain table follows the same pattern — once you learn one, you know them all.</div>
-      <div class="body">
-        <table class="fmup-naming-table">
-          <thead>
-            <tr>
-              <th class="feature">Feature</th>
-              <th>Description &amp; purpose</th>
-              <th class="convention">Field name</th>
-              <th class="example">Example</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="feature">Patient-centric</td>
-              <td>Every domain table carries a patient identifier; patient data is retrievable independently of other domains.</td>
-              <td class="convention">person_id</td>
-              <td class="example">person_id 123</td>
-            </tr>
-            <tr>
-              <td class="feature">Unique domain ID</td>
-              <td>Each domain table has its own primary key.</td>
-              <td class="convention">&lt;entity&gt;_id</td>
-              <td class="example">condition_occurrence_id 470985</td>
-            </tr>
-            <tr>
-              <td class="feature">Standard concept</td>
-              <td>Foreign key into the standard vocabulary — what analytics actually use.</td>
-              <td class="convention">&lt;entity&gt;_concept_id</td>
-              <td class="example">condition_concept_id 313217 (SNOMED "Atrial fibrillation")</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <!-- Naming conventions — continued (source-side fields) -->
-    <section class="fmup-content">
-      <h2>Naming conventions</h2>
-      <div class="title-rule"></div>
-      <div class="subtitle-line">Source-side fields — kept alongside the standard concepts for provenance.</div>
-      <div class="body">
-        <table class="fmup-naming-table">
-          <thead>
-            <tr>
-              <th class="feature">Feature</th>
-              <th>Description &amp; purpose</th>
-              <th class="convention">Field name</th>
-              <th class="example">Example</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="feature">Source value</td>
-              <td>Verbatim source data, kept for provenance — not for analytics.</td>
-              <td class="convention">&lt;entity&gt;_source_value</td>
-              <td class="example">condition_source_value 427.31 (ICD-9-CM)</td>
-            </tr>
-            <tr>
-              <td class="feature">Source concept</td>
-              <td>Foreign key into the vocabulary for the original source code.</td>
-              <td class="convention">&lt;entity&gt;_source_concept_id</td>
-              <td class="example">condition_source_concept_id 44821957</td>
-            </tr>
-            <tr>
-              <td class="feature">Source type</td>
-              <td>Foreign key indicating the origin of the record.</td>
-              <td class="convention">&lt;entity&gt;_type_concept_id</td>
-              <td class="example">condition_type_concept_id 38000199 ("Inpatient header — primary")</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         31. VOCABULARY MAPPING — concept structure
-         ══════════════════════════════════════════ -->
-    <section class="fmup-content">
-      <h2>Vocabulary mapping</h2>
-      <div class="title-rule"></div>
-      <div class="subtitle-line">Three tables hold the entire vocabulary system.</div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-concept-trio">
-          <div class="concept-cell">
-            <div class="concept-svg">
-              <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="100" cy="100" r="60" fill="#7E96B2" stroke="#3A4A60" stroke-width="2"/>
-              </svg>
-            </div>
-            <div class="concept-caption">All content — every concept lives in <code>concept</code></div>
-          </div>
-          <div class="concept-cell">
-            <div class="concept-svg">
-              <svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg">
-                <line x1="80" y1="100" x2="200" y2="100" stroke="#3A4A60" stroke-width="2"/>
-                <circle cx="80" cy="100" r="44" fill="#7E96B2" stroke="#3A4A60" stroke-width="2"/>
-                <circle cx="200" cy="100" r="44" fill="#7E96B2" stroke="#3A4A60" stroke-width="2"/>
-              </svg>
-            </div>
-            <div class="concept-caption">Direct relationships between concepts in <code>concept_relationship</code></div>
-          </div>
-          <div class="concept-cell">
-            <div class="concept-svg">
-              <svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg">
-                <line x1="140" y1="40" x2="80" y2="100" stroke="#3A4A60" stroke-width="2"/>
-                <line x1="140" y1="40" x2="200" y2="100" stroke="#3A4A60" stroke-width="2"/>
-                <line x1="80" y1="100" x2="50" y2="160" stroke="#3A4A60" stroke-width="2"/>
-                <line x1="80" y1="100" x2="110" y2="160" stroke="#3A4A60" stroke-width="2"/>
-                <line x1="200" y1="100" x2="170" y2="160" stroke="#3A4A60" stroke-width="2"/>
-                <line x1="200" y1="100" x2="230" y2="160" stroke="#3A4A60" stroke-width="2"/>
-                <circle cx="140" cy="40" r="20" fill="#7E96B2" stroke="#3A4A60" stroke-width="2"/>
-                <circle cx="80" cy="100" r="18" fill="#7E96B2" stroke="#3A4A60" stroke-width="2"/>
-                <circle cx="200" cy="100" r="18" fill="#7E96B2" stroke="#3A4A60" stroke-width="2"/>
-                <circle cx="50" cy="160" r="14" fill="#7E96B2" stroke="#3A4A60" stroke-width="2"/>
-                <circle cx="110" cy="160" r="14" fill="#7E96B2" stroke="#3A4A60" stroke-width="2"/>
-                <circle cx="170" cy="160" r="14" fill="#7E96B2" stroke="#3A4A60" stroke-width="2"/>
-                <circle cx="230" cy="160" r="14" fill="#7E96B2" stroke="#3A4A60" stroke-width="2"/>
-              </svg>
-            </div>
-            <div class="concept-caption">Multi-step hierarchical relationships pre-processed into <code>concept_ancestor</code></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         32. VOCABULARY MAPPING — drug example
-         ══════════════════════════════════════════ -->
-    <section class="fmup-content">
-      <h2>Vocabulary mapping in practice</h2>
-      <div class="title-rule"></div>
-      <div class="subtitle-line">Many source vocabularies funnel into one standard concept set — for drugs, that hub is RxNorm.</div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-image-full">
-          <div class="image-frame" style="background: var(--fmup-white);">
-            <img src="assets/vocab-mapping-diagram.png" alt="Diagram showing drug classifications (VA Class, ATC, SNOMED, etc.) and source codes (CIEL, NDC, GPI, etc.) all mapping into RxNorm and RxNorm Extension as standard concepts">
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         33. EHDS — section divider
-         ══════════════════════════════════════════ -->
-    <section class="fmup-section" data-transition="fade">
-      <div class="label">Block I · continued</div>
-      <h2>The European Health Data Space</h2>
-      <div class="subtitle">EHDS · the regulatory backbone for primary and secondary use of health data in Europe.</div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         34. THE ORIGIN — von der Leyen's mission letter
-         ══════════════════════════════════════════ -->
-    <section class="fmup-content">
-      <h2>Where it began</h2>
-      <div class="title-rule"></div>
-      <div class="subtitle-line">Ursula von der Leyen's <em>mission letter</em> (1 December 2019), addressed to Stella Kyriakides, Commissioner for Health and Food Safety.</div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-image-side reverse">
-          <div class="side-text">
-            <p>Mandate: <strong>create a European Health Data Space</strong> to drive better care and reduce inequalities.</p>
-            <p>Goal: enable the exchange of health data and support new preventive strategies, treatments, and medicines.</p>
-          </div>
-          <div class="image-frame" style="background: var(--fmup-grey-bg);">
-            <img src="assets/ehds-mission-letter.png" alt="The mission letter from Ursula von der Leyen to Stella Kyriakides, December 2019">
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         35. EU DATA STRATEGY — health is one of nine spaces
-         ══════════════════════════════════════════ -->
-    <section class="fmup-content">
-      <h2>EHDS sits inside a wider EU data strategy</h2>
-      <div class="title-rule"></div>
-      <div class="subtitle-line">Nine sectoral data spaces sharing a common technical and governance scaffolding — health is one of them.</div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-image-full">
-          <div class="image-frame" style="background: var(--fmup-white);">
-            <img src="assets/ehds-eu-data-strategy.png" alt="The EU data strategy overview: nine sectoral data spaces (Health, Industrial, Agriculture, Finance, Mobility, Green Deal, Energy, Public Administration, Skills) plus a common technical infrastructure (cloud, edge, HPC, AI on-demand)">
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         36. THE EHDS REGULATION
-         ══════════════════════════════════════════ -->
-    <section class="fmup-content">
-      <h2>The EHDS regulation</h2>
-      <div class="title-rule"></div>
-      <div class="subtitle-line">Proposed by the Commission in May 2022. Adopted by the European Parliament in April 2024.</div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-two-images">
-          <div class="image-block">
-            <div class="image-frame">
-              <img src="assets/ehds-regulation-doc.png" alt="Cover page of the European Commission proposal COM(2022) 197 final — Regulation on the European Health Data Space">
-            </div>
-            <div class="source">COM(2022) 197 final — proposal, Strasbourg 3.5.2022</div>
-          </div>
-          <div class="image-block">
-            <div class="image-frame">
-              <img src="assets/ehds-press-release.png" alt="European Commission press release dated 24 April 2024 announcing the Parliament's adoption of the EHDS">
-            </div>
-            <div class="source">European Commission press release · 24 April 2024</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         37. PRIMARY & SECONDARY USE — the matrix
-         ══════════════════════════════════════════ -->
-    <section class="fmup-content">
-      <h2>Primary and secondary use</h2>
-      <div class="title-rule"></div>
-      <div class="subtitle-line">Timely and simplified exchange of, and access to, health data for different use cases.</div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-image-full">
-          <div class="image-frame" style="background: var(--fmup-white);">
-            <img src="assets/ehds-primary-secondary-cropped.png" alt="Matrix showing primary use (better healthcare) and secondary use (better policy making, better research and innovation), each crossed against four work areas: legal/governance, data quality, infrastructure, and capacity building">
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         38. HOW EHDS WORKS FOR SECONDARY USE
-         ══════════════════════════════════════════ -->
-    <section class="fmup-content">
-      <h2>EHDS for secondary use — how it works</h2>
-      <div class="title-rule"></div>
-      <div class="body body--narrow">
-        <ul style="font-size: 17pt; line-height: 1.5;">
-          <li><strong>Common European rules.</strong> Who must make which data available, for what purposes, and under what conditions.</li>
-          <li><strong>Common infrastructure.</strong> A shared platform for data exchange across Member States.</li>
-          <li><strong>Health Data Access Bodies.</strong> National orchestrators of the access process.</li>
-          <li><strong>Data permits.</strong> Standard requirements with common safeguards before any reuse.</li>
-          <li><strong>Data catalogues.</strong> Listings of the datasets that are actually available, where, and at what quality.</li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         39. USER JOURNEY
-         ══════════════════════════════════════════ -->
-    <section class="fmup-content">
-      <h2>User journey</h2>
-      <div class="title-rule"></div>
-      <div class="subtitle-line">From "what data exists?" to a published, privacy-preserving result.</div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-image-full">
-          <div class="image-frame" style="background: var(--fmup-white);">
-            <img src="assets/ehds-user-journey.png" alt="The EHDS secondary-use user journey: data discovery → data access application → data preparation → data provision → secure processing environment → data use → results output">
-          </div>
-          <div class="caption">Adapted from <a href="https://hospeem.org/wp-content/uploads/2022/02/EHDS-presentation.pdf">hospeem.org/wp-content/uploads/2022/02/EHDS-presentation.pdf</a></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         40. DATA CATEGORIES (Article 51)
-         ══════════════════════════════════════════ -->
-    <section class="fmup-content">
-      <h2>Data categories under secondary use</h2>
-      <div class="title-rule"></div>
-      <div class="subtitle-line">What can be made available — defined in Article 51 of the regulation.</div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-image-full">
-          <div class="image-frame screenshot" style="background: var(--fmup-white);">
-            <img src="assets/ehds-data-categories.png" alt="Data categories under EHDS Article 51: EHR data, administrative data, medical-device data, wellness apps, registries, biobanks, omics data, healthcare resources, clinical investigations, research cohorts">
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         41. ALLOWED AND PROHIBITED PURPOSES (Articles 53–54)
-         ══════════════════════════════════════════ -->
-    <section class="fmup-content">
-      <h2>Allowed and prohibited purposes</h2>
-      <div class="title-rule"></div>
-      <div class="subtitle-line">What you may and may not do with EHDS data — Articles 53 &amp; 54.</div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-image-full">
-          <div class="image-frame screenshot" style="background: var(--fmup-white);">
-            <img src="assets/ehds-allowed-prohibited.png" alt="Two panels: allowed purposes (public-interest research, policy and regulatory activities, statistics, education, scientific research, healthcare improvement) and prohibited purposes (decisions detrimental to individuals, employment decisions, advertising/marketing, harmful products, unethical activities)">
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         42. OPT-OUT
-         ══════════════════════════════════════════ -->
-    <section class="fmup-content tight">
-      <h2>Opt-out</h2>
-      <div class="title-rule"></div>
-      <div class="body body--narrow">
-        <p style="font-size: 14pt;">Individuals have the right to <strong>opt out of the secondary use</strong> of their health data through EHDS.</p>
-        <p style="font-size: 14pt; margin-top: 0.7em;">It can be exercised <strong>at any time</strong>, <strong>without justification</strong>, and is <strong>reversible</strong>. The mechanism must be easy to access and understand.</p>
-        <p style="font-size: 14pt; margin-top: 0.7em;">Member States <em>may</em> set narrow rules so that, in selected cases and under strict conditions, opt-out data can still be made available for matters of public interest.</p>
-        <div class="fmup-highlight" style="margin-top: 0.9em;">
-          <span class="highlight-label">Left open by the legislator</span>
-          Where and how to exercise it (flexibility for Member States); the mechanism for making data available; temporal effect — opt-out applies only forward, not to existing licences and extractions.
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         43. EHDS WITHIN THE EU REGULATORY FRAMEWORK
-         ══════════════════════════════════════════ -->
-    <section class="fmup-content">
-      <h2>EHDS within the EU regulatory framework</h2>
-      <div class="title-rule"></div>
-      <div class="subtitle-line">EHDS doesn't sit alone — it overlaps with GDPR, the Data Governance Act, the AI Act, MDR, and several others.</div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-image-full">
-          <div class="image-frame" style="background: var(--fmup-white);">
-            <img src="assets/ehds-venn.png" alt="Venn diagram: a large blue circle (Cross-border Healthcare Directive, GDPR, Data Governance Act, AI Act, Data Act, MDR, eIDAS) overlapping with a yellow circle (EHDS — control of patients over their health data, unleash the data economy, re-use of data for research, innovation, policy making, regulatory decisions)">
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         44. TIMELINE
-         ══════════════════════════════════════════ -->
-    <section class="fmup-content">
-      <h2>EHDS — overall timeline for application</h2>
-      <div class="title-rule"></div>
-      <div class="subtitle-line">Article 105: a phased rollout from 2024 through 2036, by use case and data category.</div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-image-full">
-          <div class="image-frame" style="background: var(--fmup-white);">
-            <img src="assets/ehds-timeline.png" alt="EHDS rollout timeline 2024–2036, with general application, primary use (1st and 2nd group of priority categories), EHR systems compliance, and secondary use waves (general, selected categories, third countries)">
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         45. FAIR DATA PRINCIPLES
-         ══════════════════════════════════════════ -->
-    <section class="fmup-content tight">
-      <h2>FAIR data principles</h2>
-      <div class="title-rule"></div>
-      <div class="subtitle-line">A framework for maximising the value of research data.</div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-fair-grid">
-          <div class="fair-card">
-            <div class="fair-letter">F</div>
-            <div class="fair-body">
-              <div class="fair-term">Findable</div>
-              <div class="fair-meta">Unique identifiers; metadata that is indexed and searchable.</div>
-              <div class="fair-pain">Pain example: a CRPS registry indexed in an EU dataset catalogue, discoverable by other researchers.</div>
-            </div>
-          </div>
-          <div class="fair-card">
-            <div class="fair-letter">A</div>
-            <div class="fair-body">
-              <div class="fair-term">Accessible</div>
-              <div class="fair-meta">Retrievable via standard protocols; access conditions are clear, even if data is restricted.</div>
-              <div class="fair-pain">Pain example: opioid-prescribing data behind a documented EHDS data permit.</div>
-            </div>
-          </div>
-          <div class="fair-card">
-            <div class="fair-letter">I</div>
-            <div class="fair-body">
-              <div class="fair-term">Interoperable</div>
-              <div class="fair-meta">Standard vocabularies and formats — ICD, SNOMED, FHIR, OMOP.</div>
-              <div class="fair-pain">Pain example: NRS scores stored as LOINC codes so they aggregate across hospitals.</div>
-            </div>
-          </div>
-          <div class="fair-card">
-            <div class="fair-letter">R</div>
-            <div class="fair-body">
-              <div class="fair-term">Reusable</div>
-              <div class="fair-meta">Clear provenance, licence, and quality documentation.</div>
-              <div class="fair-pain">Pain example: a fibromyalgia cohort released with versioned phenotype definitions and a CC-BY licence.</div>
-            </div>
-          </div>
-        </div>
-        <div class="fmup-caveat" style="margin-top: 14px;">
-          <span class="caveat-strong">Why it matters for pain research.</span>
-          Pain registries that aren't FAIR are harder to reuse and federate; FAIR is important for AI training; and EU funders increasingly look for it.
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         46. FEDERATED ANALYSIS
-         ══════════════════════════════════════════ -->
-    <section class="fmup-content">
-      <h2>Federated analysis — research without moving data</h2>
-      <div class="title-rule"></div>
-      <div class="subtitle-line">Patient data can't leave the institution. So you send the analysis <em>to</em> the data, not the data to the analysis.</div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-step-row">
-          <div class="step">
-            <div class="step-num">01</div>
-            <div class="step-text">Each site converts its data to <strong>OMOP CDM</strong> locally.</div>
-          </div>
-          <div class="step">
-            <div class="step-num">02</div>
-            <div class="step-text">Researcher develops an analysis package (OHDSI ATLAS or R).</div>
-          </div>
-          <div class="step">
-            <div class="step-num">03</div>
-            <div class="step-text">Package runs <strong>at each site</strong>, on local data — no records leave.</div>
-          </div>
-          <div class="step">
-            <div class="step-num">04</div>
-            <div class="step-text">Only <strong>aggregated, anonymous results</strong> return to the researcher.</div>
-          </div>
-        </div>
-        <p style="font-size: 15pt; margin: 0.8em 0 0 0;"><strong>Live networks.</strong> EHDEN (Europe) · DARWIN-EU (EMA) · the OHDSI international network.</p>
-        <div class="fmup-highlight" style="margin-top: 14px;">
-          <span class="highlight-label">Pain application</span>
-          A multi-centre opioid-safety study across 15 EU countries — without anyone sharing patient records.
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         47. DATA GOVERNANCE AND PATIENT CONSENT
-         ══════════════════════════════════════════ -->
-    <section class="fmup-content tight">
-      <h2>Data governance and patient consent</h2>
-      <div class="title-rule"></div>
-      <div class="body">
-        <div class="two-col" style="gap: 36px;">
-          <div>
-            <h3 style="font-size: 19pt;">Key concepts</h3>
-            <ul style="font-size: 14pt; line-height: 1.45; margin-top: 0.4em;">
-              <li><strong>Data ownership.</strong> Patient? Hospital? State?</li>
-              <li><strong>Consent models.</strong> Explicit (opt-in) vs broad consent vs dynamic consent.</li>
-              <li><strong>Purpose limitation.</strong> Use only for consented purposes (GDPR Art. 5).</li>
-              <li><strong>Data minimisation.</strong> Collect only what is necessary.</li>
-              <li><strong>DPIA.</strong> Required for large-scale health-data processing.</li>
-            </ul>
-          </div>
-          <div>
-            <h3 style="font-size: 19pt;">For pain research specifically</h3>
-            <ul style="font-size: 14pt; line-height: 1.45; margin-top: 0.4em;">
-              <li>Chronic pain patients often have <strong>vulnerable profiles</strong> — consent must be genuinely informed.</li>
-              <li>Secondary use of pain-clinic data requires <strong>ethical approval</strong>.</li>
-              <li>EHDS introduces a <strong>supervised access model</strong> with data permits.</li>
-            </ul>
-          </div>
-        </div>
-        <div style="margin-top: 1.4em;">
-          <div class="fmup-chain">
-            <span class="node start">Patient</span><span class="arrow">→</span>
-            <span class="node">Consent</span><span class="arrow">→</span>
-            <span class="node">Ethics</span><span class="arrow">→</span>
-            <span class="node">Data access</span><span class="arrow">→</span>
-            <span class="node">Research</span><span class="arrow">→</span>
-            <span class="node">Outputs</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         48. BLOCK I — DISCUSSION (yellow background)
-         ══════════════════════════════════════════ -->
-    <section class="fmup-discussion" data-transition="fade">
-      <div class="label">Block I · Discussion</div>
-      <h2>Questions to the group</h2>
-      <div class="questions">
-        <div class="q">
-          <div class="q-num">1</div>
-          <div class="q-text">In your pain clinic, which data is routinely collected in <strong>structured format</strong> — and what is only in <strong>free text</strong>?</div>
-        </div>
-        <div class="q">
-          <div class="q-num">2</div>
-          <div class="q-text">Have you ever had difficulty getting data from a referring hospital or GP? <strong>What was the cause?</strong></div>
-        </div>
-        <div class="q">
-          <div class="q-num">3</div>
-          <div class="q-text">If you could have <strong>one data element</strong> added to every patient's pain record tomorrow, what would it be?</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         BLOCK II — divider
-         ══════════════════════════════════════════ -->
-    <section class="fmup-section" data-transition="fade">
-      <div class="label">Block II</div>
-      <h2>From Data to Evidence in Pain Research</h2>
-      <div class="subtitle">RWD, RWE, and what they mean for how we understand pain treatments</div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         RWD &amp; RWE — Definitions
-         ══════════════════════════════════════════ -->
-    <section class="fmup-content">
-      <h2>Defining RWD and RWE</h2>
-      <div class="title-rule"></div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-bigletter-pair">
-          <div class="bl-row">
-            <div class="bl-letter">RWD</div>
-            <div class="bl-body">
-              <h3>Real-World Data</h3>
-              <ul>
-                <li>Health and care information collected routinely.</li>
-                <li>Sources include EHRs, claims, product and disease registries, digital health technologies.</li>
-              </ul>
-            </div>
-          </div>
-          <div class="bl-arrow">&#8595;</div>
-          <div class="bl-row">
-            <div class="bl-letter">RWE</div>
-            <div class="bl-body">
-              <h3>Real-World Evidence</h3>
-              <ul>
-                <li>Clinical evidence derived from the analysis of RWD.</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="body-footer">
-          <p>Kim H-S, Lee S, Kim JH. <em>Real-world evidence versus randomized controlled trial: clinical research based on electronic medical records.</em> J Korean Med Sci 33.34 (2018). · U.S. FDA, <em>Real-World Evidence</em>.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         RWE vs RCTs — table image
-         ══════════════════════════════════════════ -->
-    <section class="fmup-content">
-      <h2>RCTs vs. RWE</h2>
-      <div class="title-rule"></div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-image-centered">
-          <div class="image-frame tall">
-            <img src="assets/rwe-vs-rcts-table.png" alt="Comparison table: RCTs vs RWE across purpose, setting, follow-up, treatment, study group, attending physician, comparator, patient monitoring">
-          </div>
-          <div class="caption">RCTs and RWE answer different questions — efficacy under controlled conditions vs. effectiveness in routine practice.</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         Types and Sources of RWD — image
-         ══════════════════════════════════════════ -->
-    <section class="fmup-content">
-      <h2>Types and Sources of RWD</h2>
-      <div class="title-rule"></div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-image-centered">
-          <div class="image-frame tall">
-            <img src="assets/rwd-types-sources.png" alt="Grid of RWD types: Clinical, Medication, Claims, Molecular Profiling, Family History, Mobile Health, Environmental, Patient Reported, Social Media, Literature">
-          </div>
-          <div class="caption">Liu F, Panagiotakos D. <em>Real-world data: a brief review of the methods, applications, challenges and opportunities.</em> BMC Med Res Methodol 22.1 (2022): 287.</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         EHRs as RWD
-         ══════════════════════════════════════════ -->
-    <section class="fmup-content">
-      <h2>EHRs as RWD</h2>
-      <div class="title-rule"></div>
-      <div class="body">
-        <div class="two-col">
-          <div>
-            <h3>Key features</h3>
-            <ul>
-              <li>Collected during routine clinic and hospital care.</li>
-              <li>Mix of structured and unstructured data — text, images, codes.</li>
-              <li>Dynamic and heterogeneous; require significant pre-processing.</li>
-            </ul>
-          </div>
-          <div>
-            <h3>Why they matter</h3>
-            <ul>
-              <li>Pattern discovery across large, longitudinal cohorts.</li>
-              <li>Clinical decision support grounded in real practice.</li>
-              <li>Linkage and validation against external data sources.</li>
-            </ul>
-          </div>
-        </div>
-        <div class="body-footer" style="margin-top: 1.4em;">
-          <p>Liu F, Panagiotakos D. BMC Med Res Methodol 22.1 (2022): 287.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         Other RWD: Registries / Claims / PROs
-         ══════════════════════════════════════════ -->
-    <section class="fmup-content">
-      <h2>Other RWD sources</h2>
-      <div class="title-rule"></div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-rwd-cards">
-          <div class="rcard">
-            <div class="rtag">Registries</div>
-            <h3>Disease &amp; product registries</h3>
-            <ul>
-              <li>Capture information on specific patient groups or clinical conditions.</li>
-              <li>Particularly valuable for rare diseases under-represented in RCTs.</li>
-            </ul>
-          </div>
-          <div class="rcard">
-            <div class="rtag">Claims</div>
-            <h3>Insurance claims</h3>
-            <ul>
-              <li>Generated during health insurance claim processing.</li>
-              <li>Originally for payment — now widely used in research.</li>
-            </ul>
-          </div>
-          <div class="rcard">
-            <div class="rtag">PROs</div>
-            <h3>Patient-Reported Outcomes</h3>
-            <ul>
-              <li>Reported directly by patients about their own health.</li>
-              <li>Recall bias and high inter-individual variability are key limits.</li>
-            </ul>
-          </div>
-        </div>
-        <div class="body-footer" style="margin-top: 1em;">
-          <p>Liu F, Panagiotakos D. BMC Med Res Methodol 22.1 (2022): 287.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         Key characteristics of RWD
-         ══════════════════════════════════════════ -->
-    <section class="fmup-content">
-      <h2>Key characteristics of RWD</h2>
-      <div class="title-rule"></div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-rwd-chars">
-          <div class="ch"><div class="ch-bullet"></div><div class="ch-text"><strong>Observational</strong> — collected in real, uncontrolled environments.</div></div>
-          <div class="ch"><div class="ch-bullet"></div><div class="ch-text"><strong>Unstructured &amp; dynamic</strong> — text, images, signals from wearables.</div></div>
-          <div class="ch"><div class="ch-bullet"></div><div class="ch-text"><strong>Error-prone / "messy"</strong> — biased and subject to measurement error.</div></div>
-          <div class="ch"><div class="ch-bullet"></div><div class="ch-text"><strong>Heterogeneous</strong> — quality varies across providers and systems.</div></div>
-          <div class="ch accent"><div class="ch-bullet"></div><div class="ch-text"><strong>They mirror real clinical practice</strong> — decisions, behaviour, day-to-day patterns of care.</div></div>
-          <div class="ch accent"><div class="ch-bullet"></div><div class="ch-text"><strong>Increasingly used to evaluate clinical effectiveness</strong> of interventions.</div></div>
-        </div>
-        <div class="body-footer" style="margin-top: 0.8em;">
-          <p>Wang SV et al. STaRT-RWE. <em>BMJ</em> 372 (2021). · Liu F, Panagiotakos D. BMC Med Res Methodol 22.1 (2022): 287.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         Lost in Translation
-         ══════════════════════════════════════════ -->
-    <section class="fmup-content">
-      <h2>From data to knowledge — lost in translation?</h2>
-      <div class="title-rule"></div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-image-centered">
-          <p class="lead">Raw EHR data and the clinical question rarely speak the same language. Turning one into the other is where most of the work happens.</p>
-          <div class="image-frame">
-            <img src="assets/lost-in-translation.png" alt="Illustration of a clinician and a data scientist surrounded by floating words and questions">
-          </div>
-          <div class="caption">Illustration: Mariana × DALL·E 3 (Human &amp; AI).</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         Phenotyping
-         ══════════════════════════════════════════ -->
-    <section class="fmup-content">
-      <h2>Phenotyping in EHRs</h2>
-      <div class="title-rule"></div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-image-side">
-          <div class="image-frame">
-            <img src="assets/phenotype-amia.png" alt="AMIA paper: High-fidelity phenotyping — richness and freedom from bias">
-          </div>
-          <div class="side-text">
-            <p>A <strong>phenotype</strong> is a specification of an observable, potentially changing state of a patient — inferred from raw EHR data, claims, or other clinically relevant sources.</p>
-            <p>Phenotype <strong>algorithms</strong> identify or characterise phenotypes through expert rules, knowledge engineering, or machine learning.</p>
-            <p class="caption">Hripcsak G, Albers DJ. JAMIA 2017.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         Lego bricks
-         ══════════════════════════════════════════ -->
-    <section class="fmup-content">
-      <h2>Data are like Lego bricks for phenotyping</h2>
-      <div class="title-rule"></div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-image-centered">
-          <div class="image-frame tall">
-            <img src="assets/lego-bricks-phenotyping.png" alt="Diagram showing conditions, drugs, procedures, measurements, observations, visits as colour-coded Lego bricks composing a patient timeline">
-          </div>
-          <div class="caption">The Book of OHDSI · ohdsi.github.io/TheBookOfOhdsi/</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         Patient journeys
-         ══════════════════════════════════════════ -->
-    <section class="fmup-content">
-      <h2>Each database is just an (incomplete) compilation of patient journeys</h2>
-      <div class="title-rule"></div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-image-centered">
-          <div class="image-frame tall">
-            <img src="assets/patient-journeys.png" alt="Stacked patient timelines from Person 1 to Person N, each with disease, treatment and outcome events">
-          </div>
-          <div class="caption">The Book of OHDSI · ohdsi.github.io/TheBookOfOhdsi/</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         Anatomy of a cohort definition
-         ══════════════════════════════════════════ -->
-    <section class="fmup-content">
-      <h2>The anatomy of a cohort definition</h2>
-      <div class="title-rule"></div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-image-centered">
-          <div class="image-frame tall">
-            <img src="assets/cohort-anatomy.png" alt="Timeline showing observation period, cohort entry event, cohort exit and inclusion criteria">
-          </div>
-          <div class="caption">Cohort entry and exit events anchor every observational study.</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         Lisinopril cohort example
-         ══════════════════════════════════════════ -->
-    <section class="fmup-content">
-      <h2>Example — new users of lisinopril with prior hypertension</h2>
-      <div class="title-rule"></div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-image-centered">
-          <div class="image-frame tall">
-            <img src="assets/cohort-lisinopril.png" alt="Cohort definition: new lisinopril use as entry, end of lisinopril exposure as exit, with one year prior hypertension as inclusion criterion">
-          </div>
-          <div class="caption">A textbook RWE design choice — exposure window, look-back, and exit rule must be made explicit.</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         Random vs non-random — effectiveness comparison
-         ══════════════════════════════════════════ -->
-    <section class="fmup-content">
-      <h2>Comparing effectiveness — sampling vs. assignment</h2>
-      <div class="title-rule"></div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-image-centered">
-          <div class="image-frame">
-            <img src="assets/random-sampling.png" alt="Diagram: random sampling from population to study sample, then non-random assignment into treatment and control groups">
-          </div>
-          <p class="lead" style="margin-top: 0.6em;">In RWE we usually have <strong>non-random assignment</strong> — propensity scores and balancing methods are how we approximate a fair comparison.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         Multiple truths
-         ══════════════════════════════════════════ -->
-    <section class="fmup-content">
-      <h2>One truth, many shadows</h2>
-      <div class="title-rule"></div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-image-side">
-          <div class="image-frame">
-            <img src="assets/truth-perspectives.png" alt="A 3D object that projects a square shadow on one wall and a circle on another — both are true views, but neither is the whole truth">
-          </div>
-          <div class="side-text">
-            <p>Different studies, different data sources and different perspectives can all be <em>true</em> — and still be partial.</p>
-            <p>RWE rarely gives a single answer. It gives a set of consistent shadows that, together, get us closer to the truth.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         Small data vs Big data — performance curve
-         ══════════════════════════════════════════ -->
-    <section class="fmup-content">
-      <h2>Small data, big data — and what models actually need</h2>
-      <div class="title-rule"></div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-image-side reverse">
-          <div class="side-text">
-            <p><strong>Small data</strong> — sparse, hard to generalise; we lean on transfer learning, augmentation, careful pre-processing.</p>
-            <p><strong>Big data</strong> — complex to govern and integrate; opens the door to ML, deep learning, federated analyses.</p>
-            <p>The right model depends on how much data you have — and on what you can trust about it.</p>
-          </div>
-          <div class="image-frame">
-            <img src="assets/model-performance-curve.png" alt="Model performance vs data volume: simple statistical learning, traditional ML, shallow neural networks, deep neural networks">
-          </div>
-        </div>
-        <div class="body-footer">
-          <p>Adapted from Guo Q, et al. <em>Application of deep learning in ecological resource research.</em> Sci China Earth Sci 63 (2020): 1457–1474.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         Challenges of RWE
-         ══════════════════════════════════════════ -->
-    <section class="fmup-content">
-      <h2>Challenges of RWE</h2>
-      <div class="title-rule"></div>
-      <div class="body">
-        <p style="margin-top: 0; font-size: 16pt; color: var(--fmup-grey-text);">Secondary use of data is hard. The recurring methodological tensions:</p>
-        <ul>
-          <li><strong>Temporality</strong> — pinning down causal sequences with confidence.</li>
-          <li><strong>Measurement variability</strong> — how and when data were captured changes everything.</li>
-          <li><strong>Confounding</strong> — identifying and adjusting for variables that distort the result.</li>
-          <li><strong>Bias control</strong> — reducing influences that compromise validity.</li>
-        </ul>
-        <p style="font-size: 15pt; color: var(--fmup-grey-text); margin-top: 1em;">Design and analysis variability is far higher than in conventional RCTs — which is exactly why standardised reporting matters.</p>
-        <div class="body-footer">
-          <p>Wang SV et al. STaRT-RWE. <em>BMJ</em> 372 (2021).</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         STaRT-RWE — structured template
-         ══════════════════════════════════════════ -->
-    <section class="fmup-content">
-      <h2>STaRT-RWE — a structured template for RWE studies</h2>
-      <div class="title-rule"></div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-image-side">
-          <div class="image-frame">
-            <img src="assets/start-rwe-diagram.png" alt="STaRT-RWE example study design diagram: washout window, inclusion/exclusion windows, follow-up window, covariate windows, and predefined covariates">
-          </div>
-          <div class="side-text">
-            <p><strong>Make every design decision explicit</strong> — windows, covariates, exposures, outcomes, follow-up rules.</p>
-            <p>The template doesn't make a study correct. It makes a study <em>reviewable</em>: regulators, peers, and future you can see exactly what was done.</p>
-            <p class="caption">Wang SV et al. <em>BMJ</em> 372 (2021).</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         Closing — Unique strengths of EHRs in RWE
-         ══════════════════════════════════════════ -->
-    <section class="fmup-content">
-      <h2>Why EHRs still earn their place in pain research</h2>
-      <div class="title-rule"></div>
-      <div class="body">
-        <div class="two-col">
-          <div>
-            <h3>Unique strengths</h3>
-            <ul>
-              <li>Capture <strong>real prescribing</strong> — including off-guideline decisions.</li>
-              <li>Avoid direct physical risk to patients; the data already exists.</li>
-              <li>No additional burden on patients — ethically lighter than new data collection.</li>
-            </ul>
-          </div>
-          <div>
-            <h3>What that opens up</h3>
-            <ul>
-              <li>Propose evidence-based modifications to existing guidelines.</li>
-              <li>Study controversial or grey-zone topics where RCTs are hard to run.</li>
-              <li>Inform large RCTs based on patterns observed in real-world data.</li>
-            </ul>
-          </div>
-        </div>
-        <div class="body-footer">
-          <p>Kim H-S, Lee S, Kim JH. J Korean Med Sci 33.34 (2018).</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         BLOCK III — DIVIDER
-         ══════════════════════════════════════════ -->
-    <section class="fmup-section" data-transition="fade">
-      <div class="label">Block III</div>
-      <h2>AI, Digital Technologies &amp; The Future</h2>
-      <div class="subtitle">What AI actually does in pain medicine today — and what's coming next.</div>
-    </section>
-
-    <!-- BIII.1a — Opener: just the AI rectangle alone (used to ask the audience) -->
-    <section class="fmup-content">
-      <h2>Artificial Intelligence</h2>
-      <div class="title-rule"></div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-nested-boxes">
-          <div class="nb-box nb-l1">
-            <div class="nb-name">Artificial Intelligence</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- BIII.1b — What is AI? — progressive reveal via fragments -->
-    <section class="fmup-content">
-      <h2>What is AI?</h2>
-      <div class="title-rule"></div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-image-side reverse">
-          <div class="side-text ai-defs">
-            <p class="fragment first-def" data-fragment-index="1" style="font-style: italic; color: var(--fmup-grey-text);">"Intelligence" demonstrated by machines.</p>
-            <p class="fragment real-def" data-fragment-index="2"><strong>Machines that mimic functions traditionally associated with the human mind.</strong></p>
-            <p class="fragment" data-fragment-index="3" style="font-size: 14pt; color: var(--fmup-grey-text); margin-top: 0.4em;">A multidisciplinary field — informatics, psychology, linguistics, philosophy.</p>
-          </div>
-          <div class="image-frame">
-            <img src="assets/ai-head-midjourney.png" alt="Stylised illustration of an AI head with mechanical components">
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- BIII.2 — AI in pain research is exploding -->
-    <section class="fmup-content">
-      <h2>AI in pain research is exploding</h2>
-      <div class="title-rule"></div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-image-full">
-          <div class="image-frame">
-            <img src="assets/pubmed-ai-pain-trend.png" alt="PubMed results by year for AI and pain — sharp upward trend after 2018">
-          </div>
-          <div class="caption">PubMed search results by year, query: "artificial intelligence" AND "pain". Accessed May 2026.</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- BIII.3 — A long history -->
-    <section class="fmup-content">
-      <h2>Not new — a long history</h2>
-      <div class="title-rule"></div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-image-full">
-          <div class="image-frame">
-            <img src="assets/ai-timeline.jpg" alt="Circular timeline of AI history from 1950s to present">
-          </div>
-          <div class="caption">From rule-based expert systems through neural networks to today's foundation models — over six decades of work.</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- BIII.4 — Nested boxes step 2: AI + Machine Learning -->
-    <section class="fmup-content">
-      <h2>Artificial Intelligence</h2>
-      <div class="title-rule"></div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-nested-boxes">
-          <div class="nb-box nb-l1">
-            <div class="nb-name">Artificial Intelligence</div>
-            <div class="nb-box nb-l2">
-              <div class="nb-name">Machine Learning</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- BIII.5a — Conventional programming vs ML (didactic contrast, with fragments) -->
-    <section class="fmup-content">
-      <h2>Machine Learning</h2>
-      <div class="title-rule"></div>
-      <div class="subtitle-line">How would you have imagined this would be programmed?</div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-prog-contrast">
-          <div class="prog-col">
-            <h3>Traditional programming</h3>
-            <div class="prog-flow">
-              <div class="pf-input"><span>Data</span><span>Program</span></div>
-              <div class="pf-arrow">→</div>
-              <div class="pf-engine">Computer</div>
-              <div class="pf-arrow">→</div>
-              <div class="pf-output">Output</div>
-            </div>
-            <p>You write the rules. The machine applies them.</p>
-          </div>
-          <div class="prog-col ml fragment" data-fragment-index="1">
-            <h3>Machine Learning</h3>
-            <div class="prog-flow">
-              <div class="pf-input"><span>Data</span><span>Output</span></div>
-              <div class="pf-arrow">→</div>
-              <div class="pf-engine">Computer</div>
-              <div class="pf-arrow">→</div>
-              <div class="pf-output">"Program"</div>
-            </div>
-            <p>You give it examples. The machine finds the rules.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- BIII.5b — Three ways ML learns (progressive reveal) -->
-    <section class="fmup-content">
-      <h2>Three ways machines learn</h2>
-      <div class="title-rule"></div>
-      <div class="subtitle-line">What kinds of "examples" can we give? Three paradigms.</div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-paradigms">
-          <div class="pcard fragment" data-fragment-index="1">
-            <div class="pnum">01</div>
-            <h3>Supervised</h3>
-            <p>The model learns from <strong>labelled examples</strong> — input plus the correct answer.</p>
-            <div class="pex">e.g. predicting a diagnosis from imaging.</div>
-          </div>
-          <div class="pcard fragment" data-fragment-index="2">
-            <div class="pnum">02</div>
-            <h3>Unsupervised</h3>
-            <p>The model finds structure in <strong>unlabelled data</strong> — clusters, patterns, embeddings.</p>
-            <div class="pex">e.g. grouping patients by trajectory.</div>
-          </div>
-          <div class="pcard fragment" data-fragment-index="3">
-            <div class="pnum">03</div>
-            <h3>Reinforcement</h3>
-            <p>The model learns by <strong>actions and rewards</strong> — try, get feedback, adjust.</p>
-            <div class="pex">e.g. tuning a treatment protocol.</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- BIII.6a — Nested boxes step 3: AI + ML + Deep Learning -->
-    <section class="fmup-content">
-      <h2>Artificial Intelligence</h2>
-      <div class="title-rule"></div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-nested-boxes">
-          <div class="nb-box nb-l1">
-            <div class="nb-name">Artificial Intelligence</div>
-            <div class="nb-box nb-l2">
-              <div class="nb-name">Machine Learning</div>
-              <div class="nb-box nb-l3">
-                <div class="nb-name">Deep Learning</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- BIII.6b — Neural networks -->
-    <section class="fmup-content">
-      <h2>Neural networks</h2>
-      <div class="title-rule"></div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-image-side">
-          <div class="image-frame">
-            <img src="assets/neural-unit.jpg" alt="Diagram of a single neural network unit with weighted inputs, activation function, and output">
-          </div>
-          <div class="side-text">
-            <p>Inspired loosely by biology — units take inputs, apply weights, pass them through a function, and forward the result.</p>
-            <p>Stack many layers of these units and you get a <strong>deep neural network</strong>.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- BIII.6c — Nested boxes step 4: AI + ML + DL + Language Models -->
-    <section class="fmup-content">
-      <h2>Artificial Intelligence</h2>
-      <div class="title-rule"></div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-nested-boxes">
-          <div class="nb-box nb-l1">
-            <div class="nb-name">Artificial Intelligence</div>
-            <div class="nb-box nb-l2">
-              <div class="nb-name">Machine Learning</div>
-              <div class="nb-box nb-l3">
-                <div class="nb-name">Deep Learning</div>
-                <div class="nb-box nb-l4">
-                  <div class="nb-name">Language Models</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- BIII.7 — Inside an LLM -->
-    <section class="fmup-content">
-      <h2>Inside an LLM</h2>
-      <div class="title-rule"></div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-image-full">
-          <div class="image-frame">
-            <img src="assets/llm-pipeline.png" alt="Pipeline showing pre-training on text corpora, fine-tuning, RLHF, and deployment">
-          </div>
-          <div class="caption">Pre-training on web-scale text → fine-tuning → reinforcement learning from human feedback → deployment. Adapted from Ouyang et al. (2022).</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- BIII.8 — Predicting next token -->
-    <section class="fmup-content">
-      <h2>What the model actually does</h2>
-      <div class="title-rule"></div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <p class="tk-lead" style="margin: 0 0 14px 0; font-size: 16pt; color: var(--fmup-grey-text); font-style: italic;">An LLM predicts the most likely next token, given everything that came before.</p>
-        <div class="fmup-token-list">
-          <div class="tk">The cat sat on the <span class="blank">___</span><span class="arrow">→</span><span class="blank filled">mat</span></div>
-          <div class="tk">The colour of the sky is <span class="blank">___</span><span class="arrow">→</span><span class="blank filled">blue</span></div>
-          <div class="tk">The patient reported severe <span class="blank">___</span><span class="arrow">→</span><span class="blank filled">pain</span></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- BIII.9 — Pre-training + fine-tuning -->
-    <section class="fmup-content">
-      <h2>Pre-train once, specialise many times</h2>
-      <div class="title-rule"></div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-image-full">
-          <div class="image-frame">
-            <img src="assets/transfer-learning.png" alt="Diagram of transfer learning — a pre-trained base model fine-tuned for downstream tasks">
-          </div>
-          <div class="caption">A single pre-trained base model is reused across tasks via fine-tuning — far cheaper than training from scratch.</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- BIII.10 — Models keep growing (parameters) -->
-    <section class="fmup-content">
-      <h2>Models keep growing</h2>
-      <div class="title-rule"></div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-image-full">
-          <div class="image-frame">
-            <img src="assets/llm-parameters-chart.png" alt="Chart showing parameters per model rising sharply from 2018 to 2024">
-          </div>
-          <div class="caption">Parameters per model, by release year. Roughly six orders of magnitude in five years.</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- BIII.10b — ...and trained on more words -->
-    <section class="fmup-content">
-      <h2>…and they read more</h2>
-      <div class="title-rule"></div>
-      <div class="subtitle-line">Words seen during training have grown alongside the parameter count.</div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-image-full">
-          <div class="image-frame">
-            <img src="assets/llm-words-chart.png" alt="Chart showing tokens / words processed in training scaling with model size and year">
-          </div>
-          <div class="caption">Training corpus size, by release year — frontier models now train on trillions of tokens.</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- BIII.11 — GPT-3.5 → GPT-4 -->
-    <section class="fmup-content">
-      <h2>GPT-3.5 → GPT-4 in two years</h2>
-      <div class="title-rule"></div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-image-full">
-          <div class="image-frame">
-            <img src="assets/gpt3-vs-gpt4.png" alt="Comparison showing GPT-4 is roughly 570 times larger than GPT-3.5">
-          </div>
-          <div class="caption">GPT-4 is estimated to be ~570× larger than GPT-3.5 — released roughly two years apart.</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- BIII.12 — Generative AI sub-divider -->
-    <section class="fmup-section" data-transition="fade">
-      <div class="label">Block III · 02</div>
-      <h2>Generative AI</h2>
-      <div class="subtitle">Beyond text — multimodal models that generate images, code, and molecules.</div>
-    </section>
-
-    <!-- BIII.13 — Modalities (progressive reveal + multimodal framing) -->
-    <section class="fmup-content">
-      <h2>What can these models work with?</h2>
-      <div class="title-rule"></div>
-      <div class="subtitle-line">Started with text. Then…</div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-modality-grid">
-          <div class="mod fragment" data-fragment-index="1">
-            <div class="mod-img"><img src="assets/modality-text.png" alt="Text modality icon"></div>
-            <div class="mod-label">Text</div>
-          </div>
-          <div class="mod fragment" data-fragment-index="2">
-            <div class="mod-img"><img src="assets/modality-code.png" alt="Code modality icon"></div>
-            <div class="mod-label">Code</div>
-          </div>
-          <div class="mod fragment" data-fragment-index="3">
-            <div class="mod-img"><img src="assets/modality-image.png" alt="Image modality icon"></div>
-            <div class="mod-label">Image</div>
-          </div>
-          <div class="mod fragment" data-fragment-index="4">
-            <div class="mod-img"><img src="assets/modality-molecules.png" alt="Molecules modality icon"></div>
-            <div class="mod-label">Molecules</div>
-          </div>
-        </div>
-        <div class="fragment" data-fragment-index="5" style="margin-top: 16px; text-align: center; padding: 14px 22px; background: var(--fmup-yellow); font-size: 18pt; font-weight: 700;">
-          Modern frontier models are <em>multimodal</em> — they handle several of these at once.
-        </div>
-      </div>
-    </section>
-
-    <!-- BIII.14 — Evolutionary tree -->
-    <section class="fmup-content">
-      <h2>The LLM evolutionary tree</h2>
-      <div class="title-rule"></div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-image-full">
-          <div class="image-frame">
-            <img src="assets/llm-evolutionary-tree.png" alt="Evolutionary tree of large language models, branching into open- and closed-source families">
-          </div>
-          <div class="caption">Open- and closed-source LLM families, 2018–2023. Yang et al., "Harnessing the Power of LLMs in Practice", arXiv:2304.13712.</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- BIII.15 — Concerns cloud -->
-    <section class="fmup-content">
-      <h2>What worries clinicians about generative AI</h2>
-      <div class="title-rule"></div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-concerns-cloud">
-          <div class="pill size-l fragment fade-up">Hallucinations</div>
-          <div class="pill fragment fade-up">References</div>
-          <div class="pill size-l fragment fade-up">Data security</div>
-          <div class="pill size-s fragment fade-up">Costs</div>
-          <div class="pill fragment fade-up">Explainability</div>
-          <div class="pill size-s fragment fade-up">Complexity</div>
-          <div class="pill fragment fade-up">Prompt engineering</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- BIII.16 — Limit: scope & window -->
-    <section class="fmup-content">
-      <h2>What it knows is bounded</h2>
-      <div class="title-rule"></div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-image-side">
-          <div class="image-frame">
-            <img src="assets/training-scope.png" alt="Illustration of a tiny brain — limited scope and time window of training data">
-          </div>
-          <div class="side-text">
-            <p>A model can only know what was in its training data — and only up to the cutoff date.</p>
-            <p>Recent guidelines, local protocols, and post-training literature are <strong>invisible</strong> unless explicitly retrieved.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- BIII.17 — Limit: bias -->
-    <section class="fmup-content">
-      <h2>Bias is baked in</h2>
-      <div class="title-rule"></div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-image-side">
-          <div class="image-frame">
-            <img src="assets/training-bias.png" alt="Illustration of bias scales tilted by training data composition">
-          </div>
-          <div class="side-text">
-            <p>Training data carries the biases of its sources — under-represented populations, historical inequities, geographic skew.</p>
-            <p>For pain in particular, this matters: pain is reported and measured very differently across groups.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- BIII.18 — Limit: black box -->
-    <section class="fmup-content">
-      <h2>We can't always explain it</h2>
-      <div class="title-rule"></div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-image-side">
-          <div class="image-frame">
-            <img src="assets/black-box.png" alt="Cyberpunk-styled illustration of a black box model">
-          </div>
-          <div class="side-text">
-            <p>Even the people who build these models can't fully account for any single output.</p>
-            <p>Explainability tools help — but in clinical settings, this opacity is part of the regulatory and ethical conversation.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- BIII.19 — Closing transition: data overload -->
-    <section class="fmup-content">
-      <h2>Why this matters now</h2>
-      <div class="title-rule"></div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-image-full">
-          <div class="image-frame">
-            <img src="assets/data-overload-context.png" alt="Researcher buried under streams of clinical data">
-          </div>
-          <div class="caption">Health information needs and clinical data are growing faster than humans can manage them — that's the gap AI is being asked to fill.</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════════════════════════
-         BLOCK III B — AI in Practice: Where We Actually Are
-         ══════════════════════════════════════════════════════════════ -->
-
-    <!-- BIIIB.1 — Block III B sub-divider -->
-    <section class="fmup-section" data-transition="fade">
-      <div class="label">Block III · 03</div>
-      <h2>AI in Practice</h2>
-      <div class="subtitle">Where we actually are — and what really helps in the clinic.</div>
-    </section>
-
-    <!-- BIIIB.2 — AI everywhere... mood opener -->
-    <section class="fmup-content">
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-mood">
-          <div class="mood-line">AI <em>everywhere</em>…</div>
-          <div class="mood-sub">but where, exactly, in pain medicine?</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- BIIIB.3 — Reality check sub-divider -->
-    <section class="fmup-section" data-transition="fade">
-      <div class="label">Reality check</div>
-      <h2>The 1,357 AI-enabled devices approved by the FDA</h2>
-    </section>
-
-    <!-- BIIIB.4 — FDA: AI device approvals over time -->
-    <section class="fmup-content">
-      <h2>AI medical devices — FDA</h2>
-      <div class="title-rule"></div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-image-full">
-          <div class="image-frame screenshot">
-            <img src="assets/fda-devices-cumulative.png" alt="Cumulative number of AI-enabled medical devices approved by the FDA, all domains, growing exponentially after 2018">
-          </div>
-          <div class="caption">N = 1 357. fda.gov/medical-devices/software-medical-device-samd/artificial-intelligence-enabled-medical-devices</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- BIIIB.5 — By specialty: Radiology dominates -->
-    <section class="fmup-content">
-      <h2>FDA AI devices — by specialty</h2>
-      <div class="title-rule"></div>
-      <div class="subtitle-line">Radiology dominates: ~77% of devices are imaging-based.</div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-image-full">
-          <div class="image-frame screenshot">
-            <img src="assets/fda-devices-cumulative-by-specialty.png" alt="Cumulative AI device approvals by specialty: Radiology far ahead at 1039, Cardiovascular at 130, others trailing">
-          </div>
-          <div class="caption">Radiology: 1 039 · Cardiovascular: 130 · Anesthesiology: 23.</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- BIIIB.6 — Anesthesiology: 1.7% -->
-    <section class="fmup-content">
-      <h2>Anesthesiology — only 1.7%</h2>
-      <div class="title-rule"></div>
-      <div class="subtitle-line">23 of 1 357 AI-enabled devices.</div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-image-full">
-          <div class="image-frame screenshot">
-            <img src="assets/fda-anesth-cumulative.png" alt="Cumulative AI-enabled medical devices in Anesthesiology — N=23, slow growth then small uptick after 2020">
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- BIIIB.7 — The 23 "anesthesia" devices — examples -->
-    <section class="fmup-content">
-      <h2>The 23 "anesthesiology" devices</h2>
-      <div class="title-rule"></div>
-      <div class="subtitle-line">Three of the named ones — all very specific applications.</div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-cards cols-3" style="gap: 14px;">
-          <div class="fmup-card soft">
-            <div class="image-frame screenshot" style="margin-bottom: 10px; padding: 8px; background: var(--fmup-white);">
-              <img src="assets/device-smartalpha.png" alt="SmartAlpha Nerveblox — ultrasound nerve-block AI assistance" style="max-width: 100%; max-height: 140px; object-fit: contain;">
-            </div>
-            <h3 style="font-size: 14pt;">Nerveblox</h3>
-            <p style="font-size: 12pt;">Real-time ultrasound assistance for peripheral nerve blocks. <em>smartalpha.ai</em></p>
-          </div>
-          <div class="fmup-card soft">
-            <div class="image-frame screenshot" style="margin-bottom: 10px; padding: 8px; background: var(--fmup-white);">
-              <img src="assets/device-scannav.png" alt="ScanNav Anatomy Peripheral Nerve Block" style="max-width: 100%; max-height: 140px; object-fit: contain;">
-            </div>
-            <h3 style="font-size: 14pt;">ScanNav</h3>
-            <p style="font-size: 12pt;">Anatomy recognition for peripheral nerve blocks. <em>anaesthesia-singapore.org.sg</em></p>
-          </div>
-          <div class="fmup-card soft">
-            <div class="image-frame screenshot" style="margin-bottom: 10px; padding: 8px; background: var(--fmup-white);">
-              <img src="assets/device-medasense.png" alt="Medasense PMD-200 — pain monitoring under anaesthesia" style="max-width: 100%; max-height: 140px; object-fit: contain;">
-            </div>
-            <h3 style="font-size: 14pt;">PMD-200</h3>
-            <p style="font-size: 12pt;">Continuous nociception monitoring under anaesthesia. <em>medasense.com</em></p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- BIIIB.8 — Real composition of those 23 -->
-    <section class="fmup-content">
-      <h2>What's actually in those 23?</h2>
-      <div class="title-rule"></div>
-      <div class="subtitle-line">"Anesthesiology" is a generous label.</div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-stat-rows">
-          <div class="srow"><div class="sicon">😴</div><div><h3>Sleep apnea — 13</h3><p>57% of the category — sleep-disordered breathing detection.</p></div></div>
-          <div class="srow"><div class="sicon">💉</div><div><h3>Regional blocks — 3</h3><p>13% — ultrasound assistance for nerve blocks.</p></div></div>
-          <div class="srow"><div class="sicon">📊</div><div><h3>Pain monitoring — 1</h3><p>4% — a single nociception-monitoring device.</p></div></div>
-          <div class="srow"><div class="sicon">📦</div><div><h3>Other — 7</h3><p>30% — wheeze detection, insulin dosing, miscellanea.</p></div></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- BIIIB.9 — So what does this mean? -->
-    <section class="fmup-content">
-      <h2>What this means</h2>
-      <div class="title-rule"></div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <ul style="font-size: 18pt; line-height: 1.7;">
-          <li>✓ The technology exists.</li>
-          <li>✓ Scientific evidence is accumulating.</li>
-          <li>✓ Regulation is becoming clearer (AI Act).</li>
-          <li>✓ Adoption is coming — but gradually.</li>
-        </ul>
-        <div class="fmup-postit" style="margin-top: 1em;">We're at the early stage<br>of a <span style="text-decoration: underline;">long journey</span>.</div>
-      </div>
-    </section>
-
-    <!-- BIIIB.10 — Reflection 1 sub-divider -->
-    <section class="fmup-section" data-transition="fade">
-      <div class="label">Reflection 1</div>
-      <h2>Talking about health data</h2>
-    </section>
-
-    <!-- BIIIB.11 — 3 ideas about health data -->
-    <section class="fmup-content">
-      <h2>Reflection 1 — health data</h2>
-      <div class="title-rule"></div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-stat-rows">
-          <div class="srow"><div class="sicon">🧠</div><div><h3>Data are ignorant.</h3><p>Value emerges from clinical interpretation and proper context.</p></div></div>
-          <div class="srow"><div class="sicon">🩺</div><div><h3>Clinical domain, not technical.</h3><p>Quality is the responsibility of those who generate and interpret the data — not just "an IT problem".</p></div></div>
-          <div class="srow"><div class="sicon">⚖️</div><div><h3>Quality begets quality.</h3><p>Bad data → bad AI.</p></div></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- BIIIB.12 — Reality of anesthesia data (2 cols) -->
-    <section class="fmup-content">
-      <h2>The reality of anesthesia data</h2>
-      <div class="title-rule"></div>
-      <div class="body">
-        <div class="fmup-cards cols-2">
-          <div class="fmup-card soft">
-            <h3 style="font-size: 18pt;">A data-intensive field</h3>
-            <ul style="font-size: 14pt;">
-              <li>Continuous vital parameters</li>
-              <li>Drug doses and timing</li>
-              <li>Events and interventions</li>
-              <li>Patient characteristics</li>
-              <li>Post-operative outcomes</li>
-            </ul>
-          </div>
-          <div class="fmup-card soft">
-            <h3 style="font-size: 18pt; color: #B7322C;">Underused potential</h3>
-            <ul style="font-size: 14pt;">
-              <li>Data sit in isolated silos</li>
-              <li>Devices aren't interoperable</li>
-              <li>Manual records are incomplete</li>
-              <li>Lack of standardisation</li>
-              <li>Clinical value not extracted</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- BIIIB.13 — Device data challenges -->
-    <section class="fmup-content">
-      <h2>The challenge of device data</h2>
-      <div class="title-rule"></div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-stat-rows">
-          <div class="srow"><div class="sicon">🔗</div><div><h3>Limited interoperability</h3><p>Impossible to correlate data from different sources in any useful timeframe.</p></div></div>
-          <div class="srow"><div class="sicon">🚫</div><div><h3>Restricted access</h3><p>Closed or absent APIs make integration with clinical records difficult.</p></div></div>
-          <div class="srow"><div class="sicon">🔀</div><div><h3>Little standardisation</h3><p>Each manufacturer uses its own formats and terminologies.</p></div></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- BIIIB.14 — Reflection 2 sub-divider -->
-    <section class="fmup-section" data-transition="fade">
-      <div class="label">Reflection 2</div>
-      <h2>Regulation</h2>
-    </section>
-
-    <!-- BIIIB.15 — AI Act + EHDS opportunity -->
-    <section class="fmup-content">
-      <h2>AI Act + European Health Data Space</h2>
-      <div class="title-rule"></div>
-      <div class="subtitle-line">A regulatory moment for health AI.</div>
-      <div class="body">
-        <div class="fmup-cards cols-2">
-          <div class="fmup-card soft">
-            <h3 style="font-size: 18pt;">New requirements</h3>
-            <ul style="font-size: 14pt;">
-              <li>Mandatory algorithmic transparency</li>
-              <li>Decision traceability</li>
-              <li>Documentation of training data</li>
-              <li>Continuous performance logs</li>
-            </ul>
-            <p style="font-size: 13pt; color: var(--fmup-grey-text); margin-top: 0.6em;"><strong>Regulatory pressure</strong> to open and standardise medical-device data.</p>
-          </div>
-          <div class="fmup-card soft">
-            <h3 style="font-size: 18pt;">Emerging opportunities</h3>
-            <ul style="font-size: 14pt;">
-              <li>Multi-centre research, easier</li>
-              <li>More robust algorithm development</li>
-              <li>Validation in diverse populations</li>
-              <li>Continuous benchmarking</li>
-            </ul>
-            <p style="font-size: 13pt; color: var(--fmup-grey-text); margin-top: 0.6em;"><em>Access to more data does not by itself solve quality.</em></p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- BIIIB.16 — AI Act: what + objectives -->
-    <section class="fmup-content">
-      <h2>The AI Act</h2>
-      <div class="title-rule"></div>
-      <div class="subtitle-line">Regulation (EU) 2024/1689 — the first global legal framework for AI.</div>
-      <div class="body">
-        <h3 style="font-size: 18pt; margin-top: 0.4em;">Key objectives</h3>
-        <ul style="font-size: 16pt;">
-          <li>Ensure AI systems are safe and respect <strong>EU fundamental rights and values</strong>.</li>
-          <li><strong>Promote investment and innovation</strong> in AI through a clear legal framework.</li>
-          <li>Enable lawful, safe and reliable AI applications in the EU single market.</li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- BIIIB.17 — Why we need regulation -->
-    <section class="fmup-content">
-      <h2>Why we need it</h2>
-      <div class="title-rule"></div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <ul style="font-size: 17pt; line-height: 1.6;">
-          <li>Most systems are low-risk, but some create harms that need addressing to avoid undesirable outcomes.</li>
-          <li>AI decisions can be hard to understand — and may produce unfair disadvantages (e.g. hiring).</li>
-          <li>Pre-existing protection was insufficient for AI-specific challenges.</li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- BIIIB.18 — What is an "AI system"? -->
-    <section class="fmup-content tight">
-      <h2>What is an "AI system"?</h2>
-      <div class="title-rule"></div>
-      <div class="body">
-        <p style="font-size: 14pt; line-height: 1.55; padding: 18px 22px; background: var(--fmup-grey-bg); border-left: 4px solid var(--fmup-yellow);">
-          "An <strong>AI system</strong> is a machine-based system designed to operate with varying levels of autonomy, that may exhibit adaptiveness after deployment, and that — for explicit or implicit objectives — infers, from the input it receives, how to generate outputs such as predictions, content, recommendations or decisions that can influence physical or virtual environments."
+  <main class="page">
+
+    <header class="intro">
+      <span class="eyebrow">Pós-Graduação em Medicina da Dor · FMUP</span>
+      <h1>Digital Health Strategies in Pain Management</h1>
+      <div class="title-rule"></div>
+      <p class="meta">
+        Sessão de <strong>3 horas</strong> · <strong>8 de maio de 2026</strong> · MEDCIDS, FMUP.<br>
+        Duas versões estão disponíveis abaixo — a versão integral (como foi concebida) e a versão efectivamente apresentada na sala.
+      </p>
+    </header>
+
+    <section class="picker" aria-label="Escolher versão dos slides">
+
+      <a class="card" href="full.html" aria-label="Ver a versão completa dos slides">
+        <span class="tag">Versão integral</span>
+        <h2>Versão completa</h2>
+        <p class="lede">
+          Todos os 3 blocos como foram desenhados — incluindo o Bloco II sobre RWD/RWE
+          em investigação na dor.
         </p>
-        <p class="fragment" style="font-size: 13pt; color: var(--fmup-grey-text); margin-top: 0.8em; font-style: italic;">💡 This definition was the subject of intense debate during the legislative process.</p>
-      </div>
-    </section>
-
-    <!-- BIIIB.19 — AI Act scope -->
-    <section class="fmup-content">
-      <h2>AI Act — who's in scope?</h2>
-      <div class="title-rule"></div>
-      <div class="body">
-        <p style="font-size: 17pt; margin-bottom: 0.6em;">It applies to:</p>
-        <ul style="font-size: 16pt; line-height: 1.55;">
-          <li>Providers placing AI systems on the EU market or putting them into service.</li>
-          <li>Users of AI systems within the Union.</li>
-          <li>Providers and users in third countries — when the output is used in the EU.</li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- BIIIB.20 — Risk levels pyramid -->
-    <section class="fmup-content">
-      <h2>AI Act — risk levels</h2>
-      <div class="title-rule"></div>
-      <div class="subtitle-line">Obligations scale with risk.</div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-image-full">
-          <div class="image-frame">
-            <img src="assets/ai-act-pyramid.png" alt="AI Act risk pyramid: Unacceptable risk (prohibition), High risk (conformity assessment), Transparency risk (information obligation), Minimal risk (no specific regulation), with GPAI as a base">
-          </div>
-          <div class="caption">Adapted from europarl.europa.eu/RegData/etudes/BRIE/2021/698792</div>
+        <div class="stats">
+          <span class="stat">130 secções</span>
+          <span class="stat">Blocos I + II + III</span>
+          <span class="stat">~3 h</span>
         </div>
-      </div>
-    </section>
+        <span class="cta">
+          Abrir slides
+          <span class="arrow"><i class="fa-solid fa-arrow-right"></i></span>
+        </span>
+      </a>
 
-    <!-- BIIIB.21 — Unacceptable risk -->
-    <section class="fmup-content">
-      <h2>Unacceptable risk</h2>
-      <div class="title-rule"></div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-pyramid-callout">
-          <div class="pyr-image"><img src="assets/ai-act-pyramid.png" alt="Pyramid highlighting the top tier — unacceptable risk"></div>
-          <div class="pyr-text">
-            <div class="pyr-tag">Tier 1</div>
-            <h3>Prohibited</h3>
-            <p>Systems considered a <strong>threat to individuals</strong> — manipulation of vulnerable groups, social scoring, certain biometric identification and categorisation.</p>
-            <p>Real-time and remote biometric identification (e.g. live facial recognition) is <strong>banned</strong>, except under strict law-enforcement conditions with prior judicial approval.</p>
-          </div>
+      <a class="card" href="abridged.html" aria-label="Ver a versão apresentada dos slides">
+        <span class="tag">Como foi dada</span>
+        <h2>Versão apresentada</h2>
+        <p class="lede">
+          O recorte efectivamente apresentado no dia — apenas 2 blocos
+          (Fundamentos de dados + IA), sem a parte sobre RWD/RWE, por restrições de tempo.
+        </p>
+        <div class="stats">
+          <span class="stat accent">111 secções</span>
+          <span class="stat">2 blocos</span>
+          <span class="stat">também em PDF</span>
         </div>
+        <span class="cta">
+          Abrir slides
+          <span class="arrow"><i class="fa-solid fa-arrow-right"></i></span>
+        </span>
+      </a>
+
+    </section>
+
+    <section class="extras" aria-label="Materiais adicionais">
+      <a href="abridged.pdf">
+        <i class="fa-solid fa-file-pdf"></i>
+        PDF da versão apresentada
+      </a>
+      <a href="https://github.com/marianacpais/fmup-digital-health-and-ai-in-pain-medicine">
+        <i class="fa-brands fa-github"></i>
+        Repositório no GitHub
+      </a>
+    </section>
+
+    <footer class="foot">
+      <div class="who">
+        <strong>Mariana Canelas Pais</strong> · <a href="mailto:mcpais@med.up.pt">mcpais@med.up.pt</a>
       </div>
-    </section>
-
-    <!-- BIIIB.22 — High risk + examples -->
-    <section class="fmup-content">
-      <h2>High risk</h2>
-      <div class="title-rule"></div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-pyramid-callout">
-          <div class="pyr-image"><img src="assets/ai-act-pyramid.png" alt="Pyramid highlighting the high-risk tier"></div>
-          <div class="pyr-text">
-            <div class="pyr-tag">Tier 2</div>
-            <h3>Strict obligations</h3>
-            <p>Not banned, but subject to <strong>strict obligations before market placement</strong>: conformity assessment, post-market monitoring.</p>
-            <p style="font-size: 13pt; color: var(--fmup-grey-text);"><strong>Examples:</strong> critical infrastructure, education and employment, healthcare and product safety, essential services, remote biometrics, law enforcement, migration and justice.</p>
-          </div>
-        </div>
+      <div class="logos">
+        <img src="assets/logo-fmup-uporto.png" alt="U.Porto · FMUP">
+        <img src="assets/wordmark-fmup.png" alt="Faculdade de Medicina, Universidade do Porto">
       </div>
-    </section>
+    </footer>
 
-    <!-- BIIIB.23 — Limited risk -->
-    <section class="fmup-content">
-      <h2>Limited (transparency) risk</h2>
-      <div class="title-rule"></div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-pyramid-callout">
-          <div class="pyr-image"><img src="assets/ai-act-pyramid.png" alt="Pyramid highlighting the transparency-risk tier"></div>
-          <div class="pyr-text">
-            <div class="pyr-tag">Tier 3</div>
-            <h3>Information &amp; transparency</h3>
-            <p>Obligation to <strong>inform humans when interacting with an AI system</strong> (e.g. chatbots).</p>
-            <p>Generative AI providers must ensure outputs are identifiable and clearly labelled (e.g. <em>deepfakes</em>, public-facing informational text).</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- BIIIB.24 — Minimal risk -->
-    <section class="fmup-content">
-      <h2>Minimal or no risk</h2>
-      <div class="title-rule"></div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-pyramid-callout">
-          <div class="pyr-image"><img src="assets/ai-act-pyramid.png" alt="Pyramid highlighting the minimal-risk tier (base)"></div>
-          <div class="pyr-text">
-            <div class="pyr-tag">Tier 4</div>
-            <h3>No specific rules</h3>
-            <p>The AI Act <strong>introduces no rules</strong> for AI considered minimal or no risk.</p>
-            <p>The <strong>vast majority of systems</strong> currently used in the EU sit in this category.</p>
-            <p style="font-size: 13pt; color: var(--fmup-grey-text);"><em>Examples:</em> AI in video games, spam filters.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- BIIIB.25 — General-purpose AI -->
-    <section class="fmup-content">
-      <h2>General-purpose AI (GPAI)</h2>
-      <div class="title-rule"></div>
-      <div class="body">
-        <ul style="font-size: 16pt;">
-          <li>Specific rules for GPAI — applies to general-purpose models <em>and</em> those representing systemic risks.</li>
-          <li>Transparency obligations: technical documentation, downstream-provider information, copyright, text-and-data mining (TDM), training-content summary, EU representative.</li>
-        </ul>
-        <div class="fmup-highlight" style="margin-top: 1em;">
-          <span class="highlight-label">Systemic risk</span>
-          GPAI with "high-impact capabilities" — providers must notify the Commission when training compute exceeds <strong>10²⁵ FLOPs</strong>. Above that threshold, systemic risk is presumed. Additional duties: risk assessment and mitigation, cybersecurity, incident reporting, corrective measures.
-        </div>
-      </div>
-    </section>
-
-    <!-- BIIIB.26 — AI literacy + Timeline -->
-    <section class="fmup-content">
-      <h2>Timeline &amp; AI literacy</h2>
-      <div class="title-rule"></div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-image-full">
-          <div class="image-frame screenshot">
-            <img src="assets/ai-act-timeline.png" alt="Phases of the EU AI Act timeline: March 2024 adoption, May 2024 Council, August 2024 entry into force, February 2025 prohibitions and AI literacy, August 2025 GPAI rules, August 2026 high-risk obligations, August 2027 extended transition">
-          </div>
-          <div class="caption">From <strong>2 February 2025</strong>, organisations on the EU market must ensure staff working with AI have adequate <strong>AI literacy</strong> — applies to providers <em>and</em> users. softwareimprovementgroup.com/eu-ai-act-summary/</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- BIIIB.27 — Reflection 3 sub-divider -->
-    <section class="fmup-section" data-transition="fade">
-      <div class="label">Reflection 3</div>
-      <h2>AI in daily "clinical" practice</h2>
-    </section>
-
-    <!-- BIIIB.28 — The iceberg: ChatGPT and beyond -->
-    <section class="fmup-content">
-      <h2>ChatGPT is just the tip</h2>
-      <div class="title-rule"></div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-iceberg">
-          <div class="ice-tip">ChatGPT</div>
-          <div class="ice-line"></div>
-          <div class="ice-rest">
-            <span class="ice-name">Gemini</span>
-            <span class="ice-name">Copilot</span>
-            <span class="ice-name">Claude</span>
-            <span class="ice-name">Perplexity</span>
-            <span class="ice-name">LLaMA</span>
-            <span class="ice-name">Mistral</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- BIIIB.29 — Use cases -->
-    <section class="fmup-content">
-      <h2>Use cases — what clinicians actually reach for</h2>
-      <div class="title-rule"></div>
-      <div class="body">
-        <div class="fmup-cards cols-3">
-          <div class="fmup-card soft">
-            <h3 style="font-size: 17pt;">✍️ Writing &amp; documentation</h3>
-            <p style="font-size: 14pt;">Reports, summaries, patient letters, translations.</p>
-          </div>
-          <div class="fmup-card soft">
-            <h3 style="font-size: 17pt;">💭 Clinical brainstorming</h3>
-            <p style="font-size: 14pt;">Differential diagnosis, second opinions, case discussion.</p>
-          </div>
-          <div class="fmup-card soft">
-            <h3 style="font-size: 17pt;">🎓 Teaching &amp; training</h3>
-            <p style="font-size: 14pt;">Lecture prep, scenario generation, exam-style questions.</p>
-          </div>
-        </div>
-        <div class="fmup-postit" style="margin-top: 1em;">Useful? <em>Probably.</em><br>Regulated? <em>"It depends."</em></div>
-      </div>
-    </section>
-
-    <!-- BIIIB.30 — Why clinicians use AI -->
-    <section class="fmup-content">
-      <h2>Why clinicians use it anyway</h2>
-      <div class="title-rule"></div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-stat-rows">
-          <div class="srow"><div class="sicon">✓</div><div><h3>Real need.</h3><p>The tools genuinely help with daily work.</p></div></div>
-          <div class="srow"><div class="sicon">⚡</div><div><h3>Speed vs. bureaucracy.</h3><p>Institutional approval takes months; AI is here today.</p></div></div>
-          <div class="srow"><div class="sicon">🚫</div><div><h3>Lack of alternatives.</h3><p>Institutions don't offer equivalent approved solutions.</p></div></div>
-          <div class="srow"><div class="sicon">⚠️</div><div><h3>Unaware of the risks.</h3><p>Many don't realise they're breaching policies or regulation.</p></div></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- BIIIB.31 — Risks (3 categories) -->
-    <section class="fmup-content">
-      <h2>The risks — three angles</h2>
-      <div class="title-rule"></div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-image-centered">
-          <div class="image-frame">
-            <img src="assets/risk-icons-3.png" alt="Three icons labelled Privacy & Security, Clinical & Professional, Institutional & Legal">
-          </div>
-          <div class="lead" style="font-size: 15pt; color: var(--fmup-grey-text); font-weight: 400;">Privacy &amp; security · Clinical &amp; professional · Institutional &amp; legal.</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- BIIIB.32 — Not all bad — drivers of change -->
-    <section class="fmup-content">
-      <h2>Not everything is bad…</h2>
-      <div class="title-rule"></div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-image-centered">
-          <div class="image-frame">
-            <img src="assets/drivers-icons-3.png" alt="Three icons labelled Drivers of Change, Use-case Identification, Digital Literacy">
-          </div>
-          <div class="lead" style="font-size: 15pt; color: var(--fmup-grey-text); font-weight: 400;">Drivers of change · Use-case identification · Digital literacy.</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- BIIIB.33 — Sugestões — clinicians aren't just users -->
-    <section class="fmup-content">
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-mood">
-          <div class="mood-line">Suggestions?</div>
-          <div class="mood-sub">The role of the clinician — and what comes next.</div>
-        </div>
-        <div class="fmup-postit" style="margin-top: 0.6em; max-width: 320px;">Clinicians are <span style="text-decoration: underline;">not just users</span> of AI.</div>
-      </div>
-    </section>
-
-    <!-- BIIIB.34 — Ethical foundations of AI -->
-    <section class="fmup-content">
-      <h2>Ethical foundations of AI</h2>
-      <div class="title-rule"></div>
-      <div class="body" style="display:flex; flex-direction:column; min-height:0; flex:1;">
-        <div class="fmup-image-full">
-          <div class="image-frame">
-            <img src="assets/ethical-foundations-dna.png" alt="DNA helix with six ethical considerations: Autonomy & Consent, Equity & Non-discrimination, Clinical Accountability, Transparency & Explainability, Privacy & Data Protection, Beneficence & Non-maleficence">
-          </div>
-          <div class="caption">Six pillars: autonomy &amp; consent · equity &amp; non-discrimination · clinical accountability · transparency &amp; explainability · privacy &amp; data protection · beneficence &amp; non-maleficence.</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════
-         FECHO
-         ══════════════════════════════════════════ -->
-    <section class="fmup-closing" data-transition="fade">
-      <h2>Thank you</h2>
-      <div class="contact">mcpais@med.up.pt</div>
-    </section>
-
-  </div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
-<script>
-  Reveal.initialize({
-    controls: true,
-    progress: true,
-    slideNumber: false,
-    hash: true,
-    transition: 'slide',
-    transitionSpeed: 'default',
-    center: false,
-    width: 1280,
-    height: 720,
-    margin: 0,
-  });
-</script>
+  </main>
 </body>
 </html>
